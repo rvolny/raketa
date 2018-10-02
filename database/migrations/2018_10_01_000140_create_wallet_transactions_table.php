@@ -17,10 +17,14 @@ class CreateWalletTransactionsTable extends Migration
             $table->increments('id');
             $table->integer('wallets_id')->unsigned();
             $table->float('balance_change', 8, 2);
+            $table->integer('users_id')->unsigned()
+                ->comment('Transaction created by');
+            $table->enum('transaction_type',
+                ['CARD', 'CASH', 'TRANSFER', 'PAYMENT', 'MANUAL']);
             $table->timestamps();
 
             $table->foreign('wallets_id')->references('id')->on('wallets');
-
+            $table->foreign('users_id')->references('id')->on('users');
         });
     }
 

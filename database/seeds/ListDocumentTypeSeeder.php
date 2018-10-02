@@ -15,6 +15,7 @@ class ListDocumentTypeSeeder extends Seeder
     {
         ListDocumentType::create(['document_type' => 'ID_CARD']);
         ListDocumentType::create(['document_type' => 'PASSPORT']);
+        ListDocumentType::create(['document_type' => 'DRIVERS_LICENCE']);
     }
 
 }

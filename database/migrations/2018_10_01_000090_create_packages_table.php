@@ -44,7 +44,6 @@ class CreatePackagesTable extends Migration
                 ->on('list_package_types');
             $table->foreign('list_insurance_ranges_id')->references('id')
                 ->on('list_insurance_ranges');
-
         });
     }
 
