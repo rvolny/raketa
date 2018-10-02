@@ -17,7 +17,7 @@ class CreateCouriersTable extends Migration
             $table->increments('id');
             $table->integer('users_id')->unsigned();
             $table->integer('documents_id')->unsigned();
-            $table->dateTimeTz('agreement_date');
+            $table->dateTimeTz('agreement_checked_at');
             $table->timestamps();
 
             $table->foreign('users_id')->references('id')->on('users');

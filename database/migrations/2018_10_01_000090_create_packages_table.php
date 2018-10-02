@@ -29,7 +29,7 @@ class CreatePackagesTable extends Migration
             $table->time('delivery_time')->nullable();
             $table->text('delivery_note')->nullable();
             $table->decimal('price', 8, 2);
-            $table->string('currency', 3)->default('EUR');
+            $table->string('currency', 3)->default('EUR')->comment('ISO 4217');
             $table->decimal('price_max_increase', 8, 2)->nullable();
             $table->integer('list_insurance_ranges_id')->unsigned()->nullable();
             $table->string('alternative_contact')->nullable();

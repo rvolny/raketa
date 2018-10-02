@@ -19,7 +19,7 @@ class CreateTransportationOffersTable extends Migration
             $table->integer('couriers_id')->unsigned();
             $table->integer('packages_id')->unsigned();
             $table->enum('state',
-                ['WAITING', 'NEGOTIATING', 'AGREED', 'REJECTED']);
+                ['WAITING', 'NEGOTIATING', 'AGREED', 'REJECTED', 'EXPIRED']);
             $table->timestamps();
 
             $table->foreign('senders_id')->references('id')->on('senders');
