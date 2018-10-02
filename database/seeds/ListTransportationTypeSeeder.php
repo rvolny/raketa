@@ -13,8 +13,6 @@ class ListTransportationTypeSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('list_transportation_types')->truncate();
-
         ListTransportationType::create(['transportation_type' => 'CAR']);
         ListTransportationType::create(['transportation_type' => 'BUS']);
         ListTransportationType::create(['transportation_type' => 'TRAIN']);

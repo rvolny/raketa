@@ -13,8 +13,6 @@ class ListPackageTypeSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('list_package_types')->truncate();
-
         ListPackageType::create(['package_type' => 'ENVELOPE_A4']);
         ListPackageType::create(['package_type' => 'ENVELOPE_A5']);
         ListPackageType::create(['package_type' => 'PACKAGE_SMALL']);

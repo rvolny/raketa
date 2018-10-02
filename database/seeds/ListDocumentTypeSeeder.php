@@ -13,8 +13,6 @@ class ListDocumentTypeSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('list_document_types')->truncate();
-
         ListDocumentType::create(['document_type' => 'ID_CARD']);
         ListDocumentType::create(['document_type' => 'PASSPORT']);
     }
