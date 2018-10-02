@@ -8,6 +8,7 @@ class CreatePackagesTable extends Migration
 {
     /**
      * Run the migrations.
+     * @see https://en.wikipedia.org/wiki/ISO_4217
      *
      * @return void
      */

@@ -8,6 +8,7 @@ class CreateUsersTable extends Migration
 {
     /**
      * Run the migrations.
+     * @see https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
      *
      * @return void
      */
