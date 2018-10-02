@@ -8,6 +8,7 @@ class CreateUsersTable extends Migration
 {
     /**
      * Run the migrations.
+     *
      * @see https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
      *
      * @return void
@@ -21,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('picture_path');
+            $table->string('picture_path')->nullable();
             $table->string('language', 8)->default('sk')->comment('ISO 639-1');
             $table->rememberToken();
             $table->timestamps();
