@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateListInsuranceRangesTable extends Migration
 {
@@ -15,7 +15,7 @@ class CreateListInsuranceRangesTable extends Migration
     {
         Schema::create('list_insurance_ranges', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('insurance_range',16);
+            $table->string('insurance_range', 16);
             $table->timestamps();
         });
     }

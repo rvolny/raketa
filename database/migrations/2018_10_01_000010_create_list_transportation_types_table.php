@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateListTransportationTypesTable extends Migration
 {
@@ -13,11 +13,12 @@ class CreateListTransportationTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('list_transportation_types', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('transportation_type',16);
-            $table->timestamps();
-        });
+        Schema::create('list_transportation_types',
+            function (Blueprint $table) {
+                $table->increments('id');
+                $table->string('transportation_type', 16);
+                $table->timestamps();
+            });
     }
 
     /**
