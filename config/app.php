@@ -209,9 +209,6 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
-        // Laravel debug bar
-        'Debugbar' => Barryvdh\Debugbar\Facade::class,
-
     ],
 
 ];
