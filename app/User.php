@@ -36,6 +36,16 @@ use Laravel\Passport\HasApiTokens;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereUpdatedAt($value)
  * @mixin \Eloquent
  */
+
+/**
+ * @OA\Schema(
+ *     description="User model",
+ *     title="User model",
+ *     @OA\Xml(
+ *         name="User"
+ *     )
+ * )
+ */
 class User extends Authenticatable
 {
     use HasApiTokens, Notifiable;

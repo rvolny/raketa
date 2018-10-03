@@ -44,24 +44,4 @@ class Controller extends BaseController
      *     description="L5 Swagger OpenApi dynamic host server"
      * )
      */
-
-    /**
-     * @OA\SecurityScheme(
-     *     type="oauth2",
-     *     description="Use a global client_id / client_secret and your username / password combo to obtain a token",
-     *     name="Password Based",
-     *     in="header",
-     *     scheme="http",
-     *     securityScheme="Password Based",
-     *     @OA\Flow(
-     *         flow="password",
-     *         authorizationUrl="/oauth/authorize",
-     *         tokenUrl="/oauth/token",
-     *         refreshUrl="/oauth/token/refresh",
-     *         scopes={}
-     *     )
-     * )
-     *
-     * @see https://swagger.io/docs/specification/authentication/oauth2/
-     */
 }

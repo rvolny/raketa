@@ -43,14 +43,14 @@ return [
          */
         'middleware' => [
             'api' => [
-                \App\Http\Middleware\EncryptCookies::class,
-                \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-                \Illuminate\Session\Middleware\StartSession::class,
-                \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-                \App\Http\Middleware\VerifyCsrfToken::class,
-                \Illuminate\Routing\Middleware\SubstituteBindings::class,
-                \Laravel\Passport\Http\Middleware\CreateFreshApiToken::class,
-                'auth',
+//                \App\Http\Middleware\EncryptCookies::class,
+//                \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+//                \Illuminate\Session\Middleware\StartSession::class,
+//                \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+//                \App\Http\Middleware\VerifyCsrfToken::class,
+//                \Illuminate\Routing\Middleware\SubstituteBindings::class,
+//                \Laravel\Passport\Http\Middleware\CreateFreshApiToken::class,
+//                'auth',
             ],
             'asset' => [],
             'docs' => [],
@@ -147,14 +147,24 @@ return [
         ],
         */
 
-        /* Open API 3.0 support
+        // Open API 3.0 support
         'passport' => [ // Unique name of security
             'type' => 'oauth2', // The type of the security scheme. Valid values are "basic", "apiKey" or "oauth2".
             'description' => 'Laravel passport oauth2 security.',
             'in' => 'header',
-            'scheme' => 'https',
+            'scheme' => 'http',
             'flows' => [
+                "implicit" => [
+                    "authorizationUrl" => config('app.url') . '/oauth/authorize',
+                    "refreshUrl" => config('app.url') . '/token/refresh',
+                    "scopes" => []
+                ],
                 "password" => [
+                    "tokenUrl" => config('app.url') . '/oauth/token',
+                    "refreshUrl" => config('app.url') . '/token/refresh',
+                    "scopes" => []
+                ],
+                "authorizationCode" => [
                     "authorizationUrl" => config('app.url') . '/oauth/authorize',
                     "tokenUrl" => config('app.url') . '/oauth/token',
                     "refreshUrl" => config('app.url') . '/token/refresh',
@@ -162,7 +172,6 @@ return [
                 ],
             ],
         ],
-        */
     ],
 
     /*
