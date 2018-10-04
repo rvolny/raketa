@@ -13,7 +13,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::create([
+        $user = User::create([
             'id'                => 1,
             'name'              => 'Admin',
             'surname'           => 'Admin',
@@ -21,7 +21,9 @@ class UserSeeder extends Seeder
             'email_verified_at' => Carbon::now(),
             'password'          => bcrypt('123456'),
         ]);
-        User::create([
+        $user->assignRole('admin');
+
+        $user = User::create([
             'id'                => 2,
             'name'              => 'Swagger',
             'surname'           => 'Swagger',
@@ -29,7 +31,9 @@ class UserSeeder extends Seeder
             'email_verified_at' => Carbon::now(),
             'password'          => bcrypt('123456'),
         ]);
-        User::create([
+        $user->assignRole(['admin', 'sender', 'courier']);
+
+        $user = User::create([
             'id'                => 3,
             'name'              => 'Jurij',
             'surname'           => 'Gagarin',
@@ -37,7 +41,9 @@ class UserSeeder extends Seeder
             'email_verified_at' => Carbon::now(),
             'password'          => bcrypt('123456'),
         ]);
-        User::create([
+        $user->assignRole(['admin', 'sender', 'courier']);
+
+        $user = User::create([
             'id'                => 4,
             'name'              => 'Sender',
             'surname'           => 'Sender',
@@ -45,7 +51,9 @@ class UserSeeder extends Seeder
             'email_verified_at' => Carbon::now(),
             'password'          => bcrypt('123456'),
         ]);
-        User::create([
+        $user->assignRole('sender');
+
+        $user = User::create([
             'id'                => 5,
             'name'              => 'Courier',
             'surname'           => 'Courier',
@@ -53,6 +61,8 @@ class UserSeeder extends Seeder
             'email_verified_at' => Carbon::now(),
             'password'          => bcrypt('123456'),
         ]);
+        $user->assignRole('courier');
+
     }
 
 }
