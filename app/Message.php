@@ -28,10 +28,17 @@ use Illuminate\Database\Eloquent\Model;
  * @OA\Schema(
  *     description="Message model",
  *     title="Message model",
- *     required={"id", "users_id_to", "message"},
+ *     required={"users_id_to", "message"},
  *     @OA\Xml(
  *         name="Message"
  *     )
+ * )
+ *
+ * @OA\RequestBody(
+ *     request="Message",
+ *     description="Message that needs to be added",
+ *     required=true,
+ *     @OA\JsonContent(ref="#/components/schemas/Message")
  * )
  */
 class Message extends Model

@@ -28,17 +28,32 @@ class RoleAndPermissionSeeder extends Seeder
         ]);
 
 
-        // Permission for User
+        // Permissions for User
 
-        // Permission for Sender
+        // Permissions for Sender
 
-        // Permission for Courier
+        // Permissions for Courier
 
-        // Permission for Package
+        // Permissions for Package
 
-        // Permission for Message
+        // Permissions for Message
+        $permission = Permission::create([
+            'name'       => 'message_read',
+            'guard_name' => 'api',
+        ]);
+        $roleAdmin->givePermissionTo($permission);
+        $roleSender->givePermissionTo($permission);
+        $roleCourier->givePermissionTo($permission);
 
-        // Permission for Wallet
+        $permission = Permission::create([
+            'name'       => 'message_create',
+            'guard_name' => 'api',
+        ]);
+        $roleAdmin->givePermissionTo($permission);
+        $roleSender->givePermissionTo($permission);
+        $roleCourier->givePermissionTo($permission);
+
+        // Permissions for Wallet
 
 
         // TODO: delete below me
