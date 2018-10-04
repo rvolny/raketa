@@ -43,5 +43,6 @@ class DatabaseSeeder extends Seeder
     public function runTestingSeeders()
     {
         $this->call(UserSeeder::class);
+        $this->call(OauthClientSeeder::class);
     }
 }
