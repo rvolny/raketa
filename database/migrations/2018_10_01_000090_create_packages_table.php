@@ -8,6 +8,7 @@ class CreatePackagesTable extends Migration
 {
     /**
      * Run the migrations.
+     *
      * @see https://en.wikipedia.org/wiki/ISO_4217
      *
      * @return void
@@ -35,6 +36,7 @@ class CreatePackagesTable extends Migration
             $table->integer('list_insurance_ranges_id')->unsigned()->nullable();
             $table->string('alternative_contact')->nullable();
             $table->string('password')->nullable();
+            $table->integer('conversations_id')->unsigned();
             $table->dateTimeTz('delivered_at')->nullable();
             $table->timestamps();
 
@@ -44,6 +46,8 @@ class CreatePackagesTable extends Migration
                 ->on('list_package_types');
             $table->foreign('list_insurance_ranges_id')->references('id')
                 ->on('list_insurance_ranges');
+            $table->foreign('conversations_id')->references('id')
+                ->on('conversations');
         });
     }
 

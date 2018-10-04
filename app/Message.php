@@ -8,13 +8,14 @@ use Illuminate\Database\Eloquent\Model;
  * App\Message
  *
  * @property int $id
- * @property int|null $users_id_from Null means the message is from system itself
- * @property int $users_id_to
+ * @property int $conversations_id
+ * @property int $users_id_from
  * @property string $message
  * @property string $received_at
  * @property string|null $read_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Message whereConversationsId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Message whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Message whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Message whereMessage($value)
@@ -22,19 +23,16 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Message whereReceivedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Message whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Message whereUsersIdFrom($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Message whereUsersIdTo($value)
  * @mixin \Eloquent
- *
- * @OA\Schema(
+ * @OA\Schema (
  *     description="Message model",
  *     title="Message model",
- *     required={"users_id_to", "message"},
+ *     required={"conversations_id", "message"},
  *     @OA\Xml(
  *         name="Message"
  *     )
  * )
- *
- * @OA\RequestBody(
+ * @OA\RequestBody (
  *     request="Message",
  *     description="Message that needs to be added",
  *     required=true,
@@ -53,13 +51,13 @@ class Message extends Model
      * @OA\Property()
      * @var integer
      */
-    private $users_id_from;
+    private $conversations_id;
 
     /**
      * @OA\Property()
      * @var integer
      */
-    private $users_id_to;
+    private $users_id_from;
 
     /**
      * @OA\Property()

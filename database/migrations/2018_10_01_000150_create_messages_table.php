@@ -15,16 +15,16 @@ class CreateMessagesTable extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('users_id_from')->unsigned()->nullable()
-                ->comment('Null means the message is from system itself');
-            $table->integer('users_id_to')->unsigned();
+            $table->integer('conversations_id')->unsigned();
+            $table->integer('users_id_from')->unsigned();
             $table->text('message');
             $table->dateTimeTz('received_at');
             $table->dateTimeTz('read_at')->nullable();
             $table->timestamps();
 
+            $table->foreign('conversations_id')->references('id')
+                ->on('conversations');
             $table->foreign('users_id_from')->references('id')->on('users');
-            $table->foreign('users_id_to')->references('id')->on('users');
         });
     }
 

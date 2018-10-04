@@ -22,16 +22,18 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $delivery_time
  * @property string|null $delivery_note
  * @property float $price
- * @property string $currency
+ * @property string $currency ISO 4217
  * @property float|null $price_max_increase
  * @property int|null $list_insurance_ranges_id
  * @property string|null $alternative_contact
  * @property string|null $password
+ * @property int $conversations_id
  * @property string|null $delivered_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Package whereAlternativeContact($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Package whereContents($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Package whereConversationsId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Package whereCouriersId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Package whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Package whereCurrency($value)
