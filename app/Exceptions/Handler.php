@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -53,6 +54,12 @@ class Handler extends ExceptionHandler
         if ($exception instanceof AuthorizationException) {
             if ($request->expectsJson() || $request->ajax()) {
                 return response()->json(['error' => 'Forbidden'], 403);
+            }
+        }
+
+        if ($exception instanceof NotFoundHttpException) {
+            if ($request->expectsJson() || $request->ajax()) {
+                return response()->json(['error' => 'Not Found'], 404);
             }
         }
 

@@ -38,7 +38,7 @@ class RoleAndPermissionSeeder extends Seeder
 
         // Permissions for Message
         $permission = Permission::create([
-            'name'       => 'message_read',
+            'name'       => 'conversation_read',
             'guard_name' => 'api',
         ]);
         $roleAdmin->givePermissionTo($permission);

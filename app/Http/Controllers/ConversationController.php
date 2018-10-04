@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-class MessageController extends Controller
+class ConversationController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -15,21 +15,29 @@ class MessageController extends Controller
     }
 
     /**
-     * Create new message
+     * Get messages for logged in user
      *
-     * @OA\Post(
-     *     path="/v1/messages",
-     *     operationId="createMessage",
+     * @OA\Get(
+     *     path="/v1/conversations/{conversation_id}",
+     *     operationId="getConversation",
      *     tags={"Messages"},
-     *     summary="Create new message",
+     *     summary="Get conversation with specified user",
      *     security={
      *         {"passport": {}},
      *     },
-     *     requestBody={"$ref": "#/components/requestBodies/Message"},
+     *     @OA\Parameter(
+     *         name="conversation_id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer", format="integer")
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
-     *         @OA\JsonContent(ref="#/components/schemas/ApiResponse"),
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(ref="#/components/schemas/Message")
+     *         ),
      *     ),
      *     @OA\Response(response=400, description="Bad request"),
      *     @OA\Response(response=401, description="Unauthorized"),
@@ -38,7 +46,7 @@ class MessageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function createMessage()
+    public function getConversation()
     {
         // TODO add Gate to verify access to conversation
     }

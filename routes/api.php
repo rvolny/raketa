@@ -40,6 +40,12 @@ Route::group([
     // Actions for Package
 
     // Actions for Message
+    Route::get('conversations/{conversation_id}',
+        'ConversationController@getConversation')
+        ->where(['conversation_id' => '[0-9]+'])
+        ->middleware('can:conversation_read');
+    Route::post('messages', 'MessageController@createMessage')
+        ->middleware('can:message_create');
 
     // Actions for Wallet
 
