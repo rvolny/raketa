@@ -14,15 +14,39 @@ class RoleAndPermissionSeeder extends Seeder
     public function run()
     {
         // Create roles
-        $roleAdmin = Role::create(['name' => 'admin',]);
-        $roleSender = Role::create(['name' => 'sender',]);
-        $roleCourier = Role::create(['name' => 'courier',]);
+        $roleAdmin = Role::create([
+            'name'       => 'admin',
+            'guard_name' => 'api',
+        ]);
+        $roleSender = Role::create([
+            'name'       => 'sender',
+            'guard_name' => 'api',
+        ]);
+        $roleCourier = Role::create([
+            'name'       => 'courier',
+            'guard_name' => 'api',
+        ]);
+
+        // User permission
+        $permission = Permission::create([
+            'name'       => 'user_read',
+            'guard_name' => 'api',
+        ]);
+        $roleAdmin->givePermissionTo($permission);
+        $roleSender->givePermissionTo($permission);
+        $roleCourier->givePermissionTo($permission);
 
         // Package permissions
-        $permission = Permission::create(['name' => 'package_list_all',]);
+        $permission = Permission::create([
+            'name'       => 'package_read_all',
+            'guard_name' => 'api',
+        ]);
         $roleAdmin->givePermissionTo($permission);
 
-        $permission = Permission::create(['name' => 'package_add',]);
+        $permission = Permission::create([
+            'name'       => 'package_create',
+            'guard_name' => 'api',
+        ]);
         $roleAdmin->givePermissionTo($permission);
         $roleSender->givePermissionTo($permission);
     }
