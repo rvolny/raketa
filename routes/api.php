@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -25,5 +23,36 @@ Route::group([
     'middleware' => ['auth:api'],
     'prefix'     => 'v1',
 ], function () {
-    Route::get('me', 'UserController@getUserInfo');
+    /*
+     * GET = read
+     * POST = create
+     * PUT = update
+     * DELETE = delete
+     * PATCH = ?
+     */
+
+    // Actions for User
+
+    // Actions for Sender
+
+    // Actions for Courier
+
+    // Actions for Package
+
+    // Actions for Message
+
+    // Actions for Wallet
+
+    // TODO: delete below me
+
+    Route::get('me', 'UserController@getUserInfo')->middleware('can:user_read');
+
+    // List of all my packages
+//    Route::get('packages', 'PackageController@getUserPackages');
+    // Create new package
+//    Route::post('packages', 'PackageController@createPackage');
+    // Update existing package
+//    Route::put('packages', 'PackagesController@updatePackage');
+    //
+
 });

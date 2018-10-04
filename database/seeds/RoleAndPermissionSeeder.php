@@ -27,6 +27,22 @@ class RoleAndPermissionSeeder extends Seeder
             'guard_name' => 'api',
         ]);
 
+
+        // Permission for User
+
+        // Permission for Sender
+
+        // Permission for Courier
+
+        // Permission for Package
+
+        // Permission for Message
+
+        // Permission for Wallet
+
+
+        // TODO: delete below me
+
         // User permission
         $permission = Permission::create([
             'name'       => 'user_read',
