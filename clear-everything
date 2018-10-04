@@ -1,0 +1,9 @@
+#!/bin/bash
+
+php artisan config:clear
+php artisan optimize:clear
+php artisan clear-compiled
+php artisan cache:clear
+php artisan auth:clear-resets
+php artisan route:clear
+php artisan view:clear
