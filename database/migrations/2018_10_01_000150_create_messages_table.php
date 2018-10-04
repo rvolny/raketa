@@ -19,7 +19,8 @@ class CreateMessagesTable extends Migration
                 ->comment('Null means the message is from system itself');
             $table->integer('users_id_to')->unsigned();
             $table->text('message');
-            $table->timestampTz('read_at')->nullable();
+            $table->dateTimeTz('received_at');
+            $table->dateTimeTz('read_at')->nullable();
             $table->timestamps();
 
             $table->foreign('users_id_from')->references('id')->on('users');
