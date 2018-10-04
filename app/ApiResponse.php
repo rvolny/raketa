@@ -6,8 +6,8 @@ namespace App;
  * Class ApiResponse
  *
  * @OA\Schema(
- *     description="Api response",
- *     title="Api response"
+ *     description="Api response model",
+ *     title="Api response model"
  * )
  */
 class ApiResponse
@@ -17,12 +17,6 @@ class ApiResponse
      * @var int
      */
     private $code;
-
-    /**
-     * @OA\Property()
-     * @var string
-     */
-    private $type;
 
     /**
      * @OA\Property()
