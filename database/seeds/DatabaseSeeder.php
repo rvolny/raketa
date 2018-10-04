@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ListDocumentTypeSeeder::class);
         $this->call(ListInsuranceRangeSeeder::class);
         $this->call(ListPackageTypeSeeder::class);
+        $this->call(RoleAndPermissionSeeder::class);
     }
 
     /**
