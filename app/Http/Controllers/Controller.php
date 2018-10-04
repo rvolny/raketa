@@ -31,10 +31,25 @@ class Controller extends BaseController
      *     name="Users",
      *     description="Operations about users",
      * )
-     *
+     * @OA\Tag(
+     *     name="Senders",
+     *     description="Operations about senders",
+     * )
+     * @OA\Tag(
+     *     name="Couriers",
+     *     description="Operations about couriers",
+     * )
      * @OA\Tag(
      *     name="Packages",
      *     description="Operations about packages",
+     * )
+     * @OA\Tag(
+     *     name="Messages",
+     *     description="Operations about Messages",
+     * )
+     * @OA\Tag(
+     *     name="Wallets",
+     *     description="Operations about Wallets",
      * )
      */
 
