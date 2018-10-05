@@ -2,7 +2,6 @@
 
 use App\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Carbon;
 
 class UserSeeder extends Seeder
 {
@@ -18,7 +17,7 @@ class UserSeeder extends Seeder
             'name'              => 'Admin',
             'surname'           => 'Admin',
             'email'             => 'admin@noreply.com',
-            'email_verified_at' => Carbon::now(),
+            'email_verified_at' => now(),
             'password'          => bcrypt('123456'),
         ]);
         $user->assignRole('admin');
@@ -28,7 +27,7 @@ class UserSeeder extends Seeder
             'name'              => 'Swagger',
             'surname'           => 'Swagger',
             'email'             => 'swagger@noreply.com',
-            'email_verified_at' => Carbon::now(),
+            'email_verified_at' => now(),
             'password'          => bcrypt('123456'),
         ]);
         $user->assignRole(['admin', 'sender', 'courier']);
@@ -38,7 +37,7 @@ class UserSeeder extends Seeder
             'name'              => 'Jurij',
             'surname'           => 'Gagarin',
             'email'             => 'gagarin@noreply.com',
-            'email_verified_at' => Carbon::now(),
+            'email_verified_at' => now(),
             'password'          => bcrypt('123456'),
         ]);
         $user->assignRole(['admin', 'sender', 'courier']);
@@ -48,7 +47,7 @@ class UserSeeder extends Seeder
             'name'              => 'Sender',
             'surname'           => 'Sender',
             'email'             => 'sender@noreply.com',
-            'email_verified_at' => Carbon::now(),
+            'email_verified_at' => now(),
             'password'          => bcrypt('123456'),
         ]);
         $user->assignRole('sender');
@@ -58,7 +57,7 @@ class UserSeeder extends Seeder
             'name'              => 'Courier',
             'surname'           => 'Courier',
             'email'             => 'courier@noreply.com',
-            'email_verified_at' => Carbon::now(),
+            'email_verified_at' => now(),
             'password'          => bcrypt('123456'),
         ]);
         $user->assignRole('courier');
