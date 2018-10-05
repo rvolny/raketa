@@ -37,21 +37,15 @@ class RoleAndPermissionSeeder extends Seeder
         // Permissions for Package
 
         // Permissions for Message
-        $permission = Permission::create([
+        Permission::create([
             'name'       => 'conversation_read',
             'guard_name' => 'api',
-        ]);
-        $roleAdmin->givePermissionTo($permission);
-        $roleSender->givePermissionTo($permission);
-        $roleCourier->givePermissionTo($permission);
+        ])->syncRoles([$roleAdmin, $roleSender, $roleCourier]);
 
-        $permission = Permission::create([
+        Permission::create([
             'name'       => 'message_create',
             'guard_name' => 'api',
-        ]);
-        $roleAdmin->givePermissionTo($permission);
-        $roleSender->givePermissionTo($permission);
-        $roleCourier->givePermissionTo($permission);
+        ])->syncRoles([$roleAdmin, $roleSender, $roleCourier]);
 
         // Permissions for Wallet
 
