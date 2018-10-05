@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Model;
  * App\WalletTransaction
  *
  * @property int $id
- * @property int $wallets_id
+ * @property int $wallet_id
  * @property float $balance_change
- * @property int $users_id Transaction created by
+ * @property int $user_id Transaction created by
  * @property string $transaction_type
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -19,8 +19,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\WalletTransaction whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\WalletTransaction whereTransactionType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\WalletTransaction whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\WalletTransaction whereUsersId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\WalletTransaction whereWalletsId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\WalletTransaction whereUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\WalletTransaction whereWalletId($value)
  * @mixin \Eloquent
  */
 class WalletTransaction extends Model

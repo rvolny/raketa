@@ -15,13 +15,13 @@ class CreateCouriersTable extends Migration
     {
         Schema::create('couriers', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('users_id')->unsigned();
-            $table->integer('documents_id')->unsigned();
+            $table->integer('user_id')->unsigned();
+            $table->integer('document_id')->unsigned();
             $table->dateTimeTz('agreement_checked_at');
             $table->timestamps();
 
-            $table->foreign('users_id')->references('id')->on('users');
-            $table->foreign('documents_id')->references('id')->on('documents');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('document_id')->references('id')->on('documents');
         });
     }
 

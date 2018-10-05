@@ -15,12 +15,12 @@ class CreateDocumentsTable extends Migration
     {
         Schema::create('documents', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('list_document_types_id')->unsigned();
+            $table->integer('list_document_type_id')->unsigned();
             $table->string('scan_front_path');
             $table->string('scan_back_path')->nullable();
             $table->timestamps();
 
-            $table->foreign('list_document_types_id')->references('id')
+            $table->foreign('list_document_type_id')->references('id')
                 ->on('list_document_types');
         });
     }

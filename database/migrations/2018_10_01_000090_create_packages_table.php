@@ -17,11 +17,11 @@ class CreatePackagesTable extends Migration
     {
         Schema::create('packages', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('senders_id')->unsigned();
-            $table->integer('couriers_id')->unsigned();
+            $table->integer('sender_id')->unsigned();
+            $table->integer('courier_id')->unsigned();
             $table->text('contents');
             $table->string('photo_path')->nullable();
-            $table->integer('list_package_types_id')->unsigned();
+            $table->integer('list_package_type_id')->unsigned();
             $table->string('pickup_location');
             $table->date('pickup_date');
             $table->time('pickup_time')->nullable();
@@ -33,20 +33,20 @@ class CreatePackagesTable extends Migration
             $table->decimal('price', 8, 2);
             $table->string('currency', 3)->default('EUR')->comment('ISO 4217');
             $table->decimal('price_max_increase', 8, 2)->nullable();
-            $table->integer('list_insurance_ranges_id')->unsigned()->nullable();
+            $table->integer('list_insurance_range_id')->unsigned()->nullable();
             $table->string('alternative_contact')->nullable();
             $table->string('password')->nullable();
-            $table->integer('conversations_id')->unsigned();
+            $table->integer('conversation_id')->unsigned();
             $table->dateTimeTz('delivered_at')->nullable();
             $table->timestamps();
 
-            $table->foreign('senders_id')->references('id')->on('senders');
-            $table->foreign('couriers_id')->references('id')->on('couriers');
-            $table->foreign('list_package_types_id')->references('id')
+            $table->foreign('sender_id')->references('id')->on('senders');
+            $table->foreign('courier_id')->references('id')->on('couriers');
+            $table->foreign('list_package_type_id')->references('id')
                 ->on('list_package_types');
-            $table->foreign('list_insurance_ranges_id')->references('id')
+            $table->foreign('list_insurance_range_id')->references('id')
                 ->on('list_insurance_ranges');
-            $table->foreign('conversations_id')->references('id')
+            $table->foreign('conversation_id')->references('id')
                 ->on('conversations');
         });
     }

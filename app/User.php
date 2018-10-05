@@ -22,6 +22,8 @@ use Spatie\Permission\Traits\HasRoles;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Passport\Client[] $clients
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Conversation[] $conversationsHi
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Conversation[] $conversationsLo
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read \Illuminate\Database\Eloquent\Collection|\Spatie\Permission\Models\Permission[] $permissions
  * @property-read \Illuminate\Database\Eloquent\Collection|\Spatie\Permission\Models\Role[] $roles
@@ -74,4 +76,28 @@ class User extends Authenticatable
             'password',
             'remember_token',
         ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function conversationsLo()
+    {
+        return $this->hasMany('App\Conversation', 'user_id_lo');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function conversationsHi()
+    {
+        return $this->hasMany('App\Conversation', 'user_id_hi');
+    }
+
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    public function conversations()
+    {
+        return collect([$this->conversationsLo(), $this->conversationsHi()]);
+    }
 }

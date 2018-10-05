@@ -15,13 +15,13 @@ class CreateUserRatingsTable extends Migration
     {
         Schema::create('user_ratings', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('users_id')->unsigned();
-            $table->integer('users_id_rating_from')->unsigned();
+            $table->integer('user_id')->unsigned();
+            $table->integer('user_id_rating_from')->unsigned();
             $table->tinyInteger('rating')->unsigned();
             $table->timestamps();
 
-            $table->foreign('users_id')->references('id')->on('users');
-            $table->foreign('users_id_rating_from')->references('id')
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id_rating_from')->references('id')
                 ->on('users');
         });
     }

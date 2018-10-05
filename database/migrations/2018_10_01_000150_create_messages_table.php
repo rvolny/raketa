@@ -15,16 +15,17 @@ class CreateMessagesTable extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('conversations_id')->unsigned();
-            $table->integer('users_id_from')->unsigned();
+            $table->integer('conversation_id')->unsigned();
+            $table->integer('user_id_from')->unsigned();
             $table->text('message');
             $table->dateTimeTz('received_at');
             $table->dateTimeTz('read_at')->nullable();
+            $table->string('ip', 32);
             $table->timestamps();
 
-            $table->foreign('conversations_id')->references('id')
+            $table->foreign('conversation_id')->references('id')
                 ->on('conversations');
-            $table->foreign('users_id_from')->references('id')->on('users');
+            $table->foreign('user_id_from')->references('id')->on('users');
         });
     }
 

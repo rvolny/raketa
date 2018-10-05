@@ -15,16 +15,16 @@ class CreateWalletTransactionsTable extends Migration
     {
         Schema::create('wallet_transactions', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('wallets_id')->unsigned();
+            $table->integer('wallet_id')->unsigned();
             $table->float('balance_change', 8, 2);
-            $table->integer('users_id')->unsigned()
+            $table->integer('user_id')->unsigned()
                 ->comment('Transaction created by');
             $table->enum('transaction_type',
                 ['CARD', 'CASH', 'TRANSFER', 'PAYMENT', 'MANUAL']);
             $table->timestamps();
 
-            $table->foreign('wallets_id')->references('id')->on('wallets');
-            $table->foreign('users_id')->references('id')->on('users');
+            $table->foreign('wallet_id')->references('id')->on('wallets');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

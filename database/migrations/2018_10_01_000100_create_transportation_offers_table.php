@@ -15,9 +15,9 @@ class CreateTransportationOffersTable extends Migration
     {
         Schema::create('transportation_offers', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('senders_id')->unsigned();
-            $table->integer('couriers_id')->unsigned()->nullable();
-            $table->integer('packages_id')->unsigned();
+            $table->integer('sender_id')->unsigned();
+            $table->integer('courier_id')->unsigned()->nullable();
+            $table->integer('package_id')->unsigned();
             $table->enum('state',
                 [
                     'WAITING',          // New package waiting for courier
@@ -30,9 +30,9 @@ class CreateTransportationOffersTable extends Migration
                 ]);
             $table->timestamps();
 
-            $table->foreign('senders_id')->references('id')->on('senders');
-            $table->foreign('couriers_id')->references('id')->on('couriers');
-            $table->foreign('packages_id')->references('id')->on('packages');
+            $table->foreign('sender_id')->references('id')->on('senders');
+            $table->foreign('courier_id')->references('id')->on('couriers');
+            $table->foreign('package_id')->references('id')->on('packages');
         });
     }
 
