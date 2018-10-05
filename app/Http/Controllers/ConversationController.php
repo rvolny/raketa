@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Conversation;
+use Illuminate\Support\Facades\Gate;
+
 class ConversationController extends Controller
 {
     /**
@@ -44,10 +47,26 @@ class ConversationController extends Controller
      *     @OA\Response(response=403, description="Forbidden")
      * )
      *
-     * @return \Illuminate\Http\Response
+     * @param int $conversationId
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function getConversation()
+    public function getConversation(int $conversationId)
     {
-        // TODO add Gate to verify access to conversation
+        // Retrieve conversation
+        $conversation = Conversation::find($conversationId);
+
+        // If conversation doesn't exist, return not found
+        if ( ! $conversation) {
+            return $this->apiResponse(404);
+        }
+
+        // Check Gate
+        if (Gate::allows('conversation_read_gate', $conversation)) {
+            // User is allowed to read conversation
+            return response()->json($conversation->messages);
+        } else {
+            return $this->apiResponse(403);
+        }
     }
 }

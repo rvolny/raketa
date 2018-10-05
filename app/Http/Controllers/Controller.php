@@ -59,4 +59,46 @@ class Controller extends BaseController
      *     description="L5 Swagger OpenApi dynamic host server"
      * )
      */
+
+    /**
+     * Return JSON error
+     *
+     * @param $code
+     * @param null $message
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function apiResponse($code, $message = null)
+    {
+        if ($message == null) {
+            $message = 'Generic Error';
+        }
+
+        switch ($code) {
+            case 400:
+                $message = 'Bad Request';
+                break;
+            case 401:
+                $message = 'Unauthorized';
+                break;
+            case 403:
+                $message = 'Forbidden';
+                break;
+            case 404:
+                $message = 'Not Found';
+                break;
+            case 405:
+                $message = 'Method Not Allowed';
+                break;
+            case 418:
+                $message = 'I\'m a teapot ';
+                break;
+        }
+
+        return response()->json([
+            'code'    => $code,
+            'message' => $message,
+        ],
+            $code);
+    }
 }

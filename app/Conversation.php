@@ -22,6 +22,11 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Conversation extends Model
 {
+    /**
+     * Get the messages for conversation
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function messages()
     {
         return $this->hasMany('App\Message');

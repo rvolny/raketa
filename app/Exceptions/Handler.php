@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use App\Http\Controllers\Controller;
 use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
@@ -47,19 +48,23 @@ class Handler extends ExceptionHandler
      * @param  \Illuminate\Http\Request $request
      * @param  \Exception $exception
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
     public function render($request, Exception $exception)
     {
         if ($exception instanceof AuthorizationException) {
             if ($request->expectsJson() || $request->ajax()) {
-                return response()->json(['error' => 'Forbidden'], 403);
+                $controller = new Controller();
+
+                return $controller->apiResponse(403);
             }
         }
 
         if ($exception instanceof NotFoundHttpException) {
             if ($request->expectsJson() || $request->ajax()) {
-                return response()->json(['error' => 'Not Found'], 404);
+                $controller = new Controller();
+
+                return $controller->apiResponse(404);
             }
         }
 
@@ -79,7 +84,9 @@ class Handler extends ExceptionHandler
         AuthenticationException $exception
     ) {
         if ($request->expectsJson() || $request->ajax()) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            $controller = new Controller();
+
+            return $controller->apiResponse(401);
         }
 
         return redirect()->guest(route('login'));

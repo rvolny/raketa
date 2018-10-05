@@ -78,4 +78,26 @@ class Message extends Model
      * @var datetime
      */
     private $read_at;
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden
+        = [
+            'ip',
+            'created_at',
+            'updated_at',
+        ];
+
+    /**
+     * Get the conversation that owns message
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    function Conversation()
+    {
+        return $this->belongsTo('App\Conversation');
+    }
 }
