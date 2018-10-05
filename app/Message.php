@@ -29,7 +29,7 @@ use Illuminate\Database\Eloquent\Model;
  * @OA\Schema (
  *     description="Message model",
  *     title="Message model",
- *     required={"conversations_id", "message"},
+ *     required={"conversation_id", "message"},
  *     @OA\Xml(
  *         name="Message"
  *     )

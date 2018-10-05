@@ -24,7 +24,7 @@ class ConversationController extends Controller
      *     path="/v1/conversations/{conversation_id}",
      *     operationId="getConversation",
      *     tags={"Messages"},
-     *     summary="Get conversation with specified user",
+     *     summary="Get specified conversation",
      *     security={
      *         {"passport": {}},
      *     },
@@ -44,7 +44,8 @@ class ConversationController extends Controller
      *     ),
      *     @OA\Response(response=400, description="Bad request"),
      *     @OA\Response(response=401, description="Unauthorized"),
-     *     @OA\Response(response=403, description="Forbidden")
+     *     @OA\Response(response=403, description="Forbidden"),
+     *     @OA\Response(response=404, description="Not Found")
      * )
      *
      * @param int $conversationId
