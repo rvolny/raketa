@@ -32,7 +32,7 @@ class AuthServiceProvider extends ServiceProvider
         Passport::refreshTokensExpireIn(now()->addDays(365));
         Passport::enableImplicitGrant();
 
-        Gate::define('conversation_read_gate',
-            'App\Policies\ConversationPolicy@conversationRead');
+        Gate::define('conversation_access_gate',
+            'App\Policies\ConversationPolicy@conversationAccess');
     }
 }

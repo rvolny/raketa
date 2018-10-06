@@ -63,6 +63,8 @@ class Controller extends BaseController
     /**
      * Return JSON error
      *
+     * @link https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+     *
      * @param $code
      * @param null $message
      *

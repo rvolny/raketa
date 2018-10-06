@@ -63,7 +63,7 @@ class ConversationController extends Controller
         }
 
         // Check Gate
-        if (Gate::allows('conversation_read_gate', $conversation)) {
+        if (Gate::allows('conversation_access_gate', $conversation)) {
             // User is allowed to read conversation
             return response()->json($conversation->messages);
         } else {
