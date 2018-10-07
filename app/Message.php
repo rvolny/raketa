@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $ip
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Conversation $Conversation
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Message whereConversationId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Message whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Message whereId($value)
