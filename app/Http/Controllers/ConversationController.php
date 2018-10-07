@@ -45,7 +45,8 @@ class ConversationController extends Controller
      *     @OA\Response(response=400, description="Bad request"),
      *     @OA\Response(response=401, description="Unauthorized"),
      *     @OA\Response(response=403, description="Forbidden"),
-     *     @OA\Response(response=404, description="Not Found")
+     *     @OA\Response(response=404, description="Not Found"),
+     *     @OA\Response(response=500, description="Internal Server Error")
      * )
      *
      * @param int $conversationId

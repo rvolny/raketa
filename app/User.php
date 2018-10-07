@@ -55,6 +55,12 @@ class User extends Authenticatable
     use HasApiTokens, HasRoles, Notifiable;
 
     /**
+     * @OA\Property()
+     * @var integer
+     */
+    private $id;
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array

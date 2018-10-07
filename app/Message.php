@@ -80,6 +80,21 @@ class Message extends Model
     private $read_at;
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable
+        = [
+            'conversation_id',
+            'user_id_from',
+            'message',
+            'received_at',
+            'read_at',
+            'ip',
+        ];
+
+    /**
      * The attributes that should be hidden for arrays.
      *
      * @var array

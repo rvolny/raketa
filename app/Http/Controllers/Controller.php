@@ -93,7 +93,10 @@ class Controller extends BaseController
                 $message = 'Method Not Allowed';
                 break;
             case 418:
-                $message = 'I\'m a teapot ';
+                $message = 'I\'m a teapot';
+                break;
+            case 500:
+                $message = 'Internal Server Error';
                 break;
         }
 
