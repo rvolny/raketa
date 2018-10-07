@@ -18,8 +18,8 @@ class CreateMessagesTable extends Migration
             $table->integer('conversation_id')->unsigned();
             $table->integer('user_id_from')->unsigned();
             $table->text('message');
-            $table->dateTimeTz('received_at');
-            $table->dateTimeTz('read_at')->nullable();
+            $table->dateTime('received_at');
+            $table->dateTime('read_at')->nullable();
             $table->string('ip', 32);
             $table->timestamps();
 

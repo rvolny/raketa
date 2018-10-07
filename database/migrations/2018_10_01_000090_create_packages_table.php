@@ -37,7 +37,7 @@ class CreatePackagesTable extends Migration
             $table->string('alternative_contact')->nullable();
             $table->string('password')->nullable();
             $table->integer('conversation_id')->unsigned();
-            $table->dateTimeTz('delivered_at')->nullable();
+            $table->dateTime('delivered_at')->nullable();
             $table->timestamps();
 
             $table->foreign('sender_id')->references('id')->on('senders');
