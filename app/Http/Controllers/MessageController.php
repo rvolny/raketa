@@ -38,6 +38,7 @@ class MessageController extends Controller
      *         description="Successful operation",
      *         @OA\JsonContent(ref="#/components/schemas/ApiResponse"),
      *     ),
+     *     @OA\Response(response=201, description="Created"),
      *     @OA\Response(response=400, description="Bad request"),
      *     @OA\Response(response=401, description="Unauthorized"),
      *     @OA\Response(response=403, description="Forbidden"),
@@ -78,7 +79,7 @@ class MessageController extends Controller
                     'ip'              => $request->ip(),
                 ]);
 
-                return response()->json($message);
+                return response()->json($message, 201);
 
             } catch (QueryException $e) {
                 return $this->apiResponse(500);
