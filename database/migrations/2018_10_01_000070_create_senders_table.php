@@ -30,6 +30,8 @@ class CreateSendersTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('senders');
+        Schema::enableForeignKeyConstraints();
     }
 }

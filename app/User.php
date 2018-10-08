@@ -19,6 +19,7 @@ use Spatie\Permission\Traits\HasRoles;
  * @property string|null $picture_path
  * @property int|null $sender_id
  * @property int|null $courier_id
+ * @property int|null $wallet_id
  * @property string $language ISO 639-1
  * @property string|null $remember_token
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -45,6 +46,7 @@ use Spatie\Permission\Traits\HasRoles;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereSenderId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereSurname($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereWalletId($value)
  * @mixin \Eloquent
  * @OA\Schema (
  *     description="User model",

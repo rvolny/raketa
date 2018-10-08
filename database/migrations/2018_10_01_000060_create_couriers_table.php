@@ -30,6 +30,8 @@ class CreateCouriersTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('couriers');
+        Schema::enableForeignKeyConstraints();
     }
 }
