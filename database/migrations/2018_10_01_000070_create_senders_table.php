@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateSendersTable extends Migration
 {
@@ -15,12 +15,10 @@ class CreateSendersTable extends Migration
     {
         Schema::create('senders', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned();
             $table->integer('document_id')->unsigned();
             $table->dateTime('agreement_checked_at');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('document_id')->references('id')->on('documents');
         });
     }

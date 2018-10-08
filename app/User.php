@@ -17,6 +17,8 @@ use Spatie\Permission\Traits\HasRoles;
  * @property string|null $email_verified_at
  * @property string $password
  * @property string|null $picture_path
+ * @property int|null $sender_id
+ * @property int|null $courier_id
  * @property string $language ISO 639-1
  * @property string|null $remember_token
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -30,6 +32,7 @@ use Spatie\Permission\Traits\HasRoles;
  * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Passport\Token[] $tokens
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User permission($permissions)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User role($roles)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereCourierId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereEmail($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereEmailVerifiedAt($value)
@@ -39,6 +42,7 @@ use Spatie\Permission\Traits\HasRoles;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User wherePassword($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User wherePicturePath($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereRememberToken($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereSenderId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereSurname($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereUpdatedAt($value)
  * @mixin \Eloquent
