@@ -81,6 +81,18 @@ class Message extends Model
     private $read_at;
 
     /**
+     * @OA\Property()
+     * @var datetime
+     */
+    private $created_at;
+
+    /**
+     * @OA\Property()
+     * @var datetime
+     */
+    private $updated_at;
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -103,8 +115,6 @@ class Message extends Model
     protected $hidden
         = [
             'ip',
-            'created_at',
-            'updated_at',
         ];
 
     /**

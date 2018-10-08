@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Conversation;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Gate;
 
 class ConversationController extends Controller
@@ -55,20 +56,21 @@ class ConversationController extends Controller
      */
     public function getConversation(int $conversationId)
     {
-        // Retrieve conversation
-        $conversation = Conversation::find($conversationId);
+        try {
+            // Retrieve conversation
+            $conversation = Conversation::findOrFail($conversationId);
 
-        // If conversation doesn't exist, return not found
-        if ( ! $conversation) {
+            // Check Gate
+            if (Gate::allows('conversation_access_gate', $conversation)) {
+                // User is allowed to read conversation
+                return response()->json($conversation->messages);
+            } else {
+                return $this->apiResponse(403);
+            }
+
+        } catch (ModelNotFoundException $e) {
+            // If conversation doesn't exist, return not found
             return $this->apiResponse(404);
-        }
-
-        // Check Gate
-        if (Gate::allows('conversation_access_gate', $conversation)) {
-            // User is allowed to read conversation
-            return response()->json($conversation->messages);
-        } else {
-            return $this->apiResponse(403);
         }
     }
 }
