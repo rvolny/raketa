@@ -16,8 +16,54 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\ListDocumentType whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\ListDocumentType whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @OA\Schema (
+ *     description="List document type model",
+ *     title="List document type model",
+ *     required={"document_type"},
+ *     @OA\Xml(
+ *         name="ListDocumentType"
+ *     )
+ * )
+ * @OA\RequestBody (
+ *     request="ListDocumentType",
+ *     description="Document type that needs to be added",
+ *     required=true,
+ *     @OA\JsonContent(ref="#/components/schemas/ListDocumentType")
+ * )
  */
 class ListDocumentType extends Model
 {
-    //
+    /**
+     * @OA\Property()
+     * @var integer
+     */
+    private $id;
+
+    /**
+     * @OA\Property()
+     * @var string
+     */
+    private $document_type;
+
+    /**
+     * @OA\Property()
+     * @var datetime
+     */
+    private $created_at;
+
+    /**
+     * @OA\Property()
+     * @var datetime
+     */
+    private $updated_at;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable
+        = [
+            'document_type',
+        ];
 }

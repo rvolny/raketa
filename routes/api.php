@@ -112,4 +112,18 @@ Route::group([
     // Create message
     Route::post('messages', 'MessageController@createMessage')
         ->middleware('can:message_create');
+
+    /* Actions for lists */
+
+    // Get list of document types
+    Route::get('lists/document-types',
+        'ListDocumentTypeController@getDocumentTypes');
+
+//    Route::get('lists/insurance-ranges', 'ListsController@getInsuranceRanges');
+
+//    Route::get('lists/package-types', 'ListsController@getPackageTypes');
+
+//    Route::get('lists/transportation-types',
+//        'ListsController@getTransportationTypes');
+
 });

@@ -45,11 +45,15 @@ class Controller extends BaseController
      * )
      * @OA\Tag(
      *     name="Messages",
-     *     description="Operations about Messages",
+     *     description="Operations about messages",
      * )
      * @OA\Tag(
      *     name="Wallets",
-     *     description="Operations about Wallets",
+     *     description="Operations about wallets",
+     * )
+     * @OA\Tag(
+     *     name="Lists",
+     *     description="Actions for data lists",
      * )
      */
 
