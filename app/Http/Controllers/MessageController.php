@@ -34,15 +34,14 @@ class MessageController extends Controller
      *     },
      *     requestBody={"$ref": "#/components/requestBodies/Message"},
      *     @OA\Response(
-     *         response=200,
-     *         description="Successful operation",
-     *         @OA\JsonContent(ref="#/components/schemas/ApiResponse"),
+     *         response=201,
+     *         description="Created",
+     *         @OA\JsonContent(ref="#/components/schemas/Message"),
      *     ),
-     *     @OA\Response(response=201, description="Created"),
      *     @OA\Response(response=400, description="Bad request"),
      *     @OA\Response(response=401, description="Unauthorized"),
      *     @OA\Response(response=403, description="Forbidden"),
-     *     @OA\Response(response=442, description="Unprocessable Entity"),
+     *     @OA\Response(response=422, description="Unprocessable Entity"),
      *     @OA\Response(response=500, description="Internal Server Error")
      * )
      *
