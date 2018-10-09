@@ -51,9 +51,16 @@ use Spatie\Permission\Traits\HasRoles;
  * @OA\Schema (
  *     description="User model",
  *     title="User model",
+ *     required={"name", "surname", "email", "password"},
  *     @OA\Xml(
  *         name="User"
  *     )
+ * )
+ * @OA\RequestBody (
+ *     request="User",
+ *     description="User that needs to be added",
+ *     required=true,
+ *     @OA\JsonContent(ref="#/components/schemas/User")
  * )
  */
 class User extends Authenticatable
@@ -67,6 +74,78 @@ class User extends Authenticatable
     private $id;
 
     /**
+     * @OA\Property()
+     * @var string
+     */
+    private $name;
+
+    /**
+     * @OA\Property()
+     * @var string
+     */
+    private $surname;
+
+    /**
+     * @OA\Property()
+     * @var string
+     */
+    private $email;
+
+    /**
+     * @OA\Property()
+     * @var datetime
+     */
+    private $email_verified_at;
+
+    /**
+     * @OA\Property()
+     * @var string
+     */
+    private $password;
+
+    /**
+     * @OA\Property()
+     * @var string
+     */
+    private $picture_path;
+
+    /**
+     * @OA\Property()
+     * @var integer
+     */
+    private $sender_id;
+
+    /**
+     * @OA\Property()
+     * @var integer
+     */
+    private $courier_id;
+
+    /**
+     * @OA\Property()
+     * @var integer
+     */
+    private $wallet_id;
+
+    /**
+     * @OA\Property()
+     * @var string
+     */
+    private $language;
+
+    /**
+     * @OA\Property()
+     * @var datetime
+     */
+    private $created_at;
+
+    /**
+     * @OA\Property()
+     * @var datetime
+     */
+    private $updated_at;
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -74,8 +153,10 @@ class User extends Authenticatable
     protected $fillable
         = [
             'name',
+            'surname',
             'email',
             'password',
+            'language',
         ];
 
     /**

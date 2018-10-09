@@ -29,6 +29,17 @@ class RoleAndPermissionSeeder extends Seeder
 
 
         // Permissions for User
+        Permission::create([
+            'name'       => 'user_read',
+            'guard_name' => 'api',
+        ])->syncRoles([$roleAdmin, $roleSender, $roleCourier]);
+
+        Permission::create([
+            'name'       => 'user_update',
+            'guard_name' => 'api',
+        ])->syncRoles([$roleAdmin, $roleSender, $roleCourier]);
+
+        // Permissions for Wallet
 
         // Permissions for Sender
 
@@ -47,19 +58,8 @@ class RoleAndPermissionSeeder extends Seeder
             'guard_name' => 'api',
         ])->syncRoles([$roleAdmin, $roleSender, $roleCourier]);
 
-        // Permissions for Wallet
-
 
         // TODO: delete below me
-
-        // User permission
-        $permission = Permission::create([
-            'name'       => 'user_read',
-            'guard_name' => 'api',
-        ]);
-        $roleAdmin->givePermissionTo($permission);
-        $roleSender->givePermissionTo($permission);
-        $roleCourier->givePermissionTo($permission);
 
         // Package permissions
         $permission = Permission::create([

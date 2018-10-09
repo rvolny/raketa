@@ -11,7 +11,6 @@
 |
 */
 
-//Route::post('/signup', 'UserApiController@signup');
 //Route::post('/logout', 'UserApiController@logout');
 //Route::post('/verify', 'UserApiController@verify');
 //Route::post('/auth/facebook', 'Auth\SocialLoginController@facebookViaAPI');
@@ -19,6 +18,16 @@
 //Route::post('/forgot/password', 'UserApiController@forgot_password');
 //Route::post('/reset/password', 'UserApiController@reset_password');
 
+
+// APIs that do not require authenticated user, but require prefix
+Route::group([
+    'prefix' => 'v1',
+], function () {
+    // Create user
+    Route::post('users', 'UserPublicController@createUser');
+});
+
+// APIs that require authenticated user
 Route::group([
     'middleware' => ['auth:api'],
     'prefix'     => 'v1',
@@ -31,15 +40,16 @@ Route::group([
      * PATCH  = partial update / modify
      */
 
+    /* Actions for User */
+
     // Get info about logged in user
-    Route::get('me', 'UserController@getUserInfo')
+    Route::get('me', 'UserController@getCurrentUserInfo')
         ->middleware('can:user_read');
 
-    /* Actions for User */
-    // Create new user
-//    Route::post('users');
     // Update logged in user
-//    Route::patch('users/{user_id}');
+    Route::patch('users/{user_id}', 'UserController@updateUser')
+        ->where(['user_id' => '[0-9]+'])
+        ->middleware('can:user_update');
 
     /* Actions for Wallet */
     // Get the wallet
@@ -92,11 +102,13 @@ Route::group([
 //    Route::patch('packages/{package_id}/offers/{offer_id}');
 
     /* Actions for Message */
+
     // Get given conversation
     Route::get('conversations/{conversation_id}',
         'ConversationController@getConversation')
         ->where(['conversation_id' => '[0-9]+'])
         ->middleware('can:conversation_read');
+
     // Create message
     Route::post('messages', 'MessageController@createMessage')
         ->middleware('can:message_create');
