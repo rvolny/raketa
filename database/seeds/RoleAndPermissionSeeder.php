@@ -18,6 +18,10 @@ class RoleAndPermissionSeeder extends Seeder
             'name'       => 'admin',
             'guard_name' => 'api',
         ]);
+        $roleUser = Role::create([
+            'name'       => 'user',
+            'guard_name' => 'api',
+        ]);
         $roleSender = Role::create([
             'name'       => 'sender',
             'guard_name' => 'api',
@@ -32,12 +36,12 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create([
             'name'       => 'user_read',
             'guard_name' => 'api',
-        ])->syncRoles([$roleAdmin, $roleSender, $roleCourier]);
+        ])->syncRoles([$roleAdmin, $roleUser]);
 
         Permission::create([
             'name'       => 'user_update',
             'guard_name' => 'api',
-        ])->syncRoles([$roleAdmin, $roleSender, $roleCourier]);
+        ])->syncRoles([$roleAdmin, $roleUser]);
 
         // Permissions for Wallet
 
@@ -49,14 +53,14 @@ class RoleAndPermissionSeeder extends Seeder
 
         // Permissions for Message
         Permission::create([
-            'name'       => 'conversation_read',
-            'guard_name' => 'api',
-        ])->syncRoles([$roleAdmin, $roleSender, $roleCourier]);
-
-        Permission::create([
             'name'       => 'message_create',
             'guard_name' => 'api',
-        ])->syncRoles([$roleAdmin, $roleSender, $roleCourier]);
+        ])->syncRoles([$roleAdmin, $roleUser]);
+
+        Permission::create([
+            'name'       => 'conversation_read',
+            'guard_name' => 'api',
+        ])->syncRoles([$roleAdmin, $roleUser]);
 
 
         // TODO: delete below me
@@ -68,11 +72,5 @@ class RoleAndPermissionSeeder extends Seeder
         ]);
         $roleAdmin->givePermissionTo($permission);
 
-        $permission = Permission::create([
-            'name'       => 'package_create',
-            'guard_name' => 'api',
-        ]);
-        $roleAdmin->givePermissionTo($permission);
-        $roleSender->givePermissionTo($permission);
     }
 }

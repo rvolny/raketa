@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
             'email_verified_at' => now(),
             'password'          => bcrypt('123456'),
         ]);
-        $user->assignRole('admin');
+        $user->assignRole(['admin']);
 
         $user = User::create([
             'id'                => 2,
@@ -30,7 +30,7 @@ class UserSeeder extends Seeder
             'email_verified_at' => now(),
             'password'          => bcrypt('123456'),
         ]);
-        $user->assignRole(['admin', 'sender', 'courier']);
+        $user->assignRole(['admin', 'user', 'sender', 'courier']);
 
         $user = User::create([
             'id'                => 3,
@@ -40,7 +40,7 @@ class UserSeeder extends Seeder
             'email_verified_at' => now(),
             'password'          => bcrypt('123456'),
         ]);
-        $user->assignRole(['admin', 'sender', 'courier']);
+        $user->assignRole(['admin', 'user', 'sender', 'courier']);
 
         $user = User::create([
             'id'                => 4,
@@ -50,7 +50,7 @@ class UserSeeder extends Seeder
             'email_verified_at' => now(),
             'password'          => bcrypt('123456'),
         ]);
-        $user->assignRole('sender');
+        $user->assignRole('user');
 
         $user = User::create([
             'id'                => 5,
@@ -60,7 +60,7 @@ class UserSeeder extends Seeder
             'email_verified_at' => now(),
             'password'          => bcrypt('123456'),
         ]);
-        $user->assignRole('courier');
+        $user->assignRole('user');
 
     }
 
