@@ -33,7 +33,7 @@ class ConversationController extends Controller
      *         name="conversation_id",
      *         in="path",
      *         required=true,
-     *         @OA\Schema(type="integer", format="integer")
+     *         @OA\Schema(type="integer", format="int64")
      *     ),
      *     @OA\Response(
      *         response=200,

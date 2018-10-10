@@ -89,7 +89,7 @@ class UserController extends Controller
      *         name="user_id",
      *         in="path",
      *         required=true,
-     *         @OA\Schema(type="integer", format="integer")
+     *         @OA\Schema(type="integer", format="int64")
      *     ),
      *     requestBody={"$ref": "#/components/requestBodies/User"},
      *     @OA\Response(
