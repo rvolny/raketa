@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\ListDocumentType;
+use App\ListInsuranceRange;
 
-class ListDocumentTypeController extends Controller
+class ListInsuranceRangeController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -17,13 +17,13 @@ class ListDocumentTypeController extends Controller
     }
 
     /**
-     * Get list document types
+     * Get list insurance ranges
      *
      * @OA\Get(
-     *     path="/v1/lists/document-types",
-     *     operationId="getDocumentTypes",
+     *     path="/v1/lists/insurance-ranges",
+     *     operationId="getInsuranceRanges",
      *     tags={"Lists"},
-     *     summary="Get document types",
+     *     summary="Get insurance ranges",
      *     security={
      *         {"passport": {}},
      *     },
@@ -32,7 +32,7 @@ class ListDocumentTypeController extends Controller
      *         description="Successful operation",
      *         @OA\JsonContent(
      *             type="array",
-     *             @OA\Items(ref="#/components/schemas/ListDocumentType")
+     *             @OA\Items(ref="#/components/schemas/ListInsuranceRange")
      *         ),
      *     ),
      *     @OA\Response(response=401, description="Unauthorized"),
@@ -41,8 +41,8 @@ class ListDocumentTypeController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getDocumentTypes()
+    public function getInsuranceRanges()
     {
-        return response()->json(ListDocumentType::all());
+        return response()->json(ListInsuranceRange::all());
     }
 }

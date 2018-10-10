@@ -119,11 +119,13 @@ Route::group([
     Route::get('lists/document-types',
         'ListDocumentTypeController@getDocumentTypes');
 
-//    Route::get('lists/insurance-ranges', 'ListsController@getInsuranceRanges');
+    Route::get('lists/insurance-ranges',
+        'ListInsuranceRangeController@getInsuranceRanges');
 
-//    Route::get('lists/package-types', 'ListsController@getPackageTypes');
+    Route::get('lists/package-types',
+        'ListPackageTypeController@getPackageTypes');
 
-//    Route::get('lists/transportation-types',
-//        'ListsController@getTransportationTypes');
+    Route::get('lists/transportation-types',
+        'ListTransportationTypeController@getTransportationTypes');
 
 });

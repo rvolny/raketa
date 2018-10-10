@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\ListDocumentType;
+use App\ListTransportationType;
 
-class ListDocumentTypeController extends Controller
+class ListTransportationTypeController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -17,13 +17,13 @@ class ListDocumentTypeController extends Controller
     }
 
     /**
-     * Get list document types
+     * Get list transportation types
      *
      * @OA\Get(
-     *     path="/v1/lists/document-types",
-     *     operationId="getDocumentTypes",
+     *     path="/v1/lists/transportation-types",
+     *     operationId="getTransportationTypes",
      *     tags={"Lists"},
-     *     summary="Get document types",
+     *     summary="Get transportation types",
      *     security={
      *         {"passport": {}},
      *     },
@@ -32,7 +32,7 @@ class ListDocumentTypeController extends Controller
      *         description="Successful operation",
      *         @OA\JsonContent(
      *             type="array",
-     *             @OA\Items(ref="#/components/schemas/ListDocumentType")
+     *             @OA\Items(ref="#/components/schemas/ListTransportationType")
      *         ),
      *     ),
      *     @OA\Response(response=401, description="Unauthorized"),
@@ -41,8 +41,8 @@ class ListDocumentTypeController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getDocumentTypes()
+    public function getTransportationTypes()
     {
-        return response()->json(ListDocumentType::all());
+        return response()->json(ListTransportationType::all());
     }
 }
