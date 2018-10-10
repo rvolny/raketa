@@ -115,9 +115,9 @@ class UserController extends Controller
     {
         // Validate parameters
         $this->validate($request, [
-            'name'     => 'min:2',
-            'surname'  => 'min:2',
-            'password' => 'min:8',
+            'name'     => 'string|min:2',
+            'surname'  => 'string|min:2',
+            'password' => 'string|min:8',
         ]);
 
         try {

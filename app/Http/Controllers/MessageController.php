@@ -54,7 +54,7 @@ class MessageController extends Controller
         // Validate parameters
         $this->validate($request, [
             'conversation_id' => 'required|integer',
-            'message'         => 'required',
+            'message'         => 'required|string',
         ]);
 
         // Retrieve conversation
