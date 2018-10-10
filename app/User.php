@@ -68,7 +68,7 @@ class User extends Authenticatable
     use HasApiTokens, HasRoles, Notifiable;
 
     /**
-     * @OA\Property()
+     * @OA\Property(format="int64")
      * @var integer
      */
     private $id;
@@ -86,19 +86,19 @@ class User extends Authenticatable
     private $surname;
 
     /**
-     * @OA\Property()
+     * @OA\Property(format="email")
      * @var string
      */
     private $email;
 
     /**
-     * @OA\Property()
-     * @var datetime
+     * @OA\Property(format="timestamp")
+     * @var string
      */
     private $email_verified_at;
 
     /**
-     * @OA\Property()
+     * @OA\Property(format="password")
      * @var string
      */
     private $password;
@@ -110,19 +110,19 @@ class User extends Authenticatable
     private $picture_path;
 
     /**
-     * @OA\Property()
+     * @OA\Property(format="int64")
      * @var integer
      */
     private $sender_id;
 
     /**
-     * @OA\Property()
+     * @OA\Property(format="int64")
      * @var integer
      */
     private $courier_id;
 
     /**
-     * @OA\Property()
+     * @OA\Property(format="int64")
      * @var integer
      */
     private $wallet_id;
@@ -134,14 +134,14 @@ class User extends Authenticatable
     private $language;
 
     /**
-     * @OA\Property()
-     * @var datetime
+     * @OA\Property(type="string", format="date-time")
+     * @var \Illuminate\Support\Carbon
      */
     private $created_at;
 
     /**
-     * @OA\Property()
-     * @var datetime
+     * @OA\Property(type="string", format="date-time")
+     * @var \Illuminate\Support\Carbon
      */
     private $updated_at;
 

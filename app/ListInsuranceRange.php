@@ -34,7 +34,7 @@ use Illuminate\Database\Eloquent\Model;
 class ListInsuranceRange extends Model
 {
     /**
-     * @OA\Property()
+     * @OA\Property(format="int64")
      * @var integer
      */
     private $id;
@@ -46,14 +46,14 @@ class ListInsuranceRange extends Model
     private $insurance_range;
 
     /**
-     * @OA\Property()
-     * @var datetime
+     * @OA\Property(type="string", format="date-time")
+     * @var \Illuminate\Support\Carbon
      */
     private $created_at;
 
     /**
-     * @OA\Property()
-     * @var datetime
+     * @OA\Property(type="string", format="date-time")
+     * @var \Illuminate\Support\Carbon
      */
     private $updated_at;
 

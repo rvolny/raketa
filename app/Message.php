@@ -45,19 +45,19 @@ use Illuminate\Database\Eloquent\Model;
 class Message extends Model
 {
     /**
-     * @OA\Property()
+     * @OA\Property(format="int64")
      * @var integer
      */
     private $id;
 
     /**
-     * @OA\Property()
+     * @OA\Property(format="int64")
      * @var integer
      */
     private $conversation_id;
 
     /**
-     * @OA\Property()
+     * @OA\Property(format="int64")
      * @var integer
      */
     private $user_id_from;
@@ -69,26 +69,32 @@ class Message extends Model
     private $message;
 
     /**
-     * @OA\Property()
-     * @var datetime
+     * @OA\Property(format="date-time")
+     * @var string
      */
     private $received_at;
 
     /**
-     * @OA\Property()
-     * @var datetime
+     * @OA\Property(format="date-time")
+     * @var string
      */
     private $read_at;
 
     /**
-     * @OA\Property()
-     * @var datetime
+     * @OA\Property(format="ip")
+     * @var string
+     */
+    private $ip;
+
+    /**
+     * @OA\Property(type="string", format="date-time")
+     * @var \Illuminate\Support\Carbon
      */
     private $created_at;
 
     /**
-     * @OA\Property()
-     * @var datetime
+     * @OA\Property(type="string", format="date-time")
+     * @var \Illuminate\Support\Carbon
      */
     private $updated_at;
 

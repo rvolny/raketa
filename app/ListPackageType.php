@@ -34,7 +34,7 @@ use Illuminate\Database\Eloquent\Model;
 class ListPackageType extends Model
 {
     /**
-     * @OA\Property()
+     * @OA\Property(format="int64")
      * @var integer
      */
     private $id;
@@ -46,14 +46,14 @@ class ListPackageType extends Model
     private $package_type;
 
     /**
-     * @OA\Property()
-     * @var datetime
+     * @OA\Property(type="string", format="date-time")
+     * @var \Illuminate\Support\Carbon
      */
     private $created_at;
 
     /**
-     * @OA\Property()
-     * @var datetime
+     * @OA\Property(type="string", format="date-time")
+     * @var \Illuminate\Support\Carbon
      */
     private $updated_at;
 

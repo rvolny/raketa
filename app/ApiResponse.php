@@ -13,8 +13,8 @@ namespace App;
 class ApiResponse
 {
     /**
-     * @OA\Property()
-     * @var int
+     * @OA\Property(format="int32")
+     * @var integer
      */
     private $code;
 
