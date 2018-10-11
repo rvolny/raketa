@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property int $id
  * @property int $sender_id
- * @property int $courier_id
+ * @property int|null $courier_id
  * @property string $contents
  * @property string|null $photo_path
  * @property int $list_package_type_id
@@ -27,10 +27,15 @@ use Illuminate\Database\Eloquent\Model;
  * @property int|null $list_insurance_range_id
  * @property string|null $alternative_contact
  * @property string|null $password
- * @property int $conversation_id
+ * @property int|null $conversation_id
  * @property string|null $delivered_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Conversation|null $conversation
+ * @property-read \App\Courier|null $courier
+ * @property-read \App\ListInsuranceRange $insuranceRange
+ * @property-read \App\ListPackageType $packageType
+ * @property-read \App\Sender $sender
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Package whereAlternativeContact($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Package whereContents($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Package whereConversationId($value)
@@ -56,8 +61,230 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Package whereSenderId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Package whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @OA\Schema (
+ *     description="Package model",
+ *     title="Package model",
+ *     required={"contents", "list_package_type_id", "pickup_location", "pickup_date",
+ *         "delivery_location", "delivery_date", "price"},
+ *     @OA\Xml(
+ *         name="Package"
+ *     )
+ * )
+ * @OA\RequestBody (
+ *     request="Package",
+ *     description="Package that needs to be added",
+ *     required=true,
+ *     @OA\JsonContent(ref="#/components/schemas/Package")
+ * )
  */
 class Package extends Model
 {
-    //
+    /**
+     * @OA\Property(format="int64")
+     * @var integer
+     */
+    private $id;
+
+    /**
+     * @OA\Property(format="int64")
+     * @var integer
+     */
+    private $sender_id;
+
+    /**
+     * @OA\Property(format="int64")
+     * @var integer
+     */
+    private $courier_id;
+
+    /**
+     * @OA\Property()
+     * @var string
+     */
+    private $contents;
+
+    /**
+     * @OA\Property()
+     * @var string
+     */
+    private $photo_path;
+
+    /**
+     * @OA\Property(format="int64")
+     * @var integer
+     */
+    private $list_package_type_id;
+
+    /**
+     * @OA\Property()
+     * @var string
+     */
+    private $pickup_location;
+
+    /**
+     * @OA\Property(format="date")
+     * @var string
+     */
+    private $pickup_date;
+
+    /**
+     * @OA\Property(format="time")
+     * @var string
+     */
+    private $pickup_time;
+
+    /**
+     * @OA\Property()
+     * @var string
+     */
+    private $pickup_note;
+
+    /**
+     * @OA\Property()
+     * @var string
+     */
+    private $delivery_location;
+
+    /**
+     * @OA\Property(format="date")
+     * @var string
+     */
+    private $delivery_date;
+
+    /**
+     * @OA\Property(format="time")
+     * @var string
+     */
+    private $delivery_time;
+
+    /**
+     * @OA\Property()
+     * @var string
+     */
+    private $delivery_note;
+
+    /**
+     * @OA\Property(format="float")
+     * @var float
+     */
+    private $price;
+
+    /**
+     * @OA\Property()
+     * @var string
+     */
+    private $currency;
+
+    /**
+     * @OA\Property(format="float")
+     * @var float
+     */
+    private $price_max_increase;
+
+    /**
+     * @OA\Property(format="int64")
+     * @var integer
+     */
+    private $list_insurance_range_id;
+
+    /**
+     * @OA\Property()
+     * @var string
+     */
+    private $alternative_contact;
+
+    /**
+     * @OA\Property()
+     * @var string
+     */
+    private $password;
+
+    /**
+     * @OA\Property(format="int64")
+     * @var integer
+     */
+    private $conversation_id;
+
+    /**
+     * @OA\Property(format="date-time")
+     * @var string
+     */
+    private $delivered_at;
+
+    /**
+     * @OA\Property(type="string", format="date-time")
+     * @var \Illuminate\Support\Carbon
+     */
+    private $created_at;
+
+    /**
+     * @OA\Property(type="string", format="date-time")
+     * @var \Illuminate\Support\Carbon
+     */
+    private $updated_at;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable
+        = [
+            'sender_id',
+            'contents',
+            'list_package_type_id',
+            'pickup_location',
+            'pickup_date',
+            'pickup_time',
+            'pickup_note',
+            'delivery_location',
+            'delivery_date',
+            'delivery_time',
+            'delivery_note',
+            'price',
+            'price_max_increase',
+            'list_insurance_range_id',
+            'alternative_contact',
+            'password',
+        ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function sender()
+    {
+        return $this->belongsTo('App\Sender');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function courier()
+    {
+        return $this->belongsTo('App\Courier');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function packageType()
+    {
+        return $this->belongsTo('App\ListPackageType');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function insuranceRange()
+    {
+        return $this->belongsTo('App\ListInsuranceRange');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function conversation()
+    {
+        return $this->belongsTo('App\Conversation');
+    }
 }

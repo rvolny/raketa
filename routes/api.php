@@ -90,8 +90,11 @@ Route::group([
 //    Route::get('couriers/{courier_id}/document');
 
     /* Actions for Package */
+
     // Create new package
-//    Route::post('packages', 'PackageController@createPackage');
+    Route::post('packages', 'PackageController@createPackage')
+        ->middleware('can:package_create');
+
     // Read packages
 //    Route::get('packages', 'PackageController@getUserPackages');
     // Read package

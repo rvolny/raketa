@@ -188,4 +188,12 @@ class User extends Authenticatable
     {
         return collect([$this->conversationsLo(), $this->conversationsHi()]);
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function sender()
+    {
+        return $this->hasOne('App\Sender');
+    }
 }

@@ -54,6 +54,10 @@ class RoleAndPermissionSeeder extends Seeder
         // Permissions for Courier
 
         // Permissions for Package
+        Permission::create([
+            'name'       => 'package_create',
+            'guard_name' => 'api',
+        ])->syncRoles([$roleAdmin, $roleSender]);
 
         // Permissions for Message
         Permission::create([
