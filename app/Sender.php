@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
  * App\Sender
  *
  * @property int $id
+ * @property int $user_id
  * @property int $document_id
  * @property string $agreement_checked_at
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -17,6 +18,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Sender whereDocumentId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Sender whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Sender whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Sender whereUserId($value)
  * @mixin \Eloquent
  * @OA\Schema (
  *     description="Sender model",
