@@ -1,0 +1,8 @@
+#!/bin/sh
+
+php artisan down --message="Upgrading application" &&
+git pull &&
+composer install &&
+php artisan migrate &&
+./clear-everything &&
+php artisan up

@@ -4,15 +4,49 @@ Backend for gagarin.
 
 Uses PSR2 code style.
 
-## Project creation
-`composer create-project --prefer-dist laravel/laravel raketa`
+## Requirements
+- Apache httpd 2.4 / nginx
+- MySQL 5.7 / MariaDB
+- PHP 7.2
+- Composer 1.6
+
+## Database
+```
+  create schema raketa
+  create user raketa identified by '**********'
+  grant all on raketa.* to raketa
+```
 
 ## Installation
+```
+git clone git@github.com:rvolny/raketa.git
+cp .env.example .env
+```
+Edit content of `.env` to your needs (especially APP_URL, DB_PASSWORD and L5_SWAGGER_CONST_HOST)  
+```
+composer install  
+php artisan key:generate
+php artisan migrate
+php artisan db:seed  
+ln -s ../storage/app/public public/storage  
+```
+
+## Updating
+```
+./tst-update
+```
 
 ## Laravel 5 IDE Helper Generator
+Generated helpers are pushed to Git, so no need to do it manually.
 ```
 php artisan clear-compiled
 php artisan ide-helper:generate
 php artisan ide-helper:meta
 php artisan ide-helper:models
 ```
+
+## References
+Swagger data types - https://swagger.io/docs/specification/data-models/data-types/  
+php-swagger examples - https://github.com/zircote/swagger-php/tree/master/Examples/petstore-3.0  
+HTTP status codes - https://en.wikipedia.org/wiki/List_of_HTTP_status_codes  
+Restful API - https://restfulapi.net/http-methods/  
