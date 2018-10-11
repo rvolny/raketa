@@ -1,17 +1,17 @@
 <?php
 
-use Illuminate\Database\Seeder;
+use Illuminate\Database\Migrations\Migration;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
-class RoleAndPermissionSeeder extends Seeder
+class CreatePermissionData extends Migration
 {
     /**
-     * Run the database seeds.
+     * Run the migrations.
      *
      * @return void
      */
-    public function run()
+    public function up()
     {
         // Create roles
         $roleAdmin = Role::create([
@@ -79,6 +79,14 @@ class RoleAndPermissionSeeder extends Seeder
             'guard_name' => 'api',
         ]);
         $roleAdmin->givePermissionTo($permission);
+    }
 
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
     }
 }
