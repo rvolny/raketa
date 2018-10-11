@@ -15,7 +15,6 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::disableForeignKeyConstraints();
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
@@ -24,18 +23,10 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('picture_path')->nullable();
-            $table->integer('sender_id')->unsigned()->nullable();
-            $table->integer('courier_id')->unsigned()->nullable();
-            $table->integer('wallet_id')->unsigned()->nullable();
             $table->string('language', 8)->default('sk')->comment('ISO 639-1');
             $table->rememberToken();
             $table->timestamps();
-
-            $table->foreign('sender_id')->references('id')->on('senders');
-            $table->foreign('courier_id')->references('id')->on('couriers');
-            $table->foreign('wallet_id')->references('id')->on('wallets');
         });
-        Schema::enableForeignKeyConstraints();
     }
 
     /**
@@ -45,8 +36,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('users');
-        Schema::enableForeignKeyConstraints();
     }
 }
