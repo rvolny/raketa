@@ -35,6 +35,10 @@ ln -s ../storage/app/public public/storage
 ```
 ./tst-update
 ```
+If you wish to refresh database, run
+```
+php artisan migrate:refresh --seed
+```
 
 ## Laravel 5 IDE Helper Generator
 Generated helpers are pushed to Git, so no need to do it manually.
