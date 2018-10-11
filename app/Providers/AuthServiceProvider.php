@@ -36,5 +36,7 @@ class AuthServiceProvider extends ServiceProvider
             'App\Policies\ConversationPolicy@conversationAccess');
         Gate::define('user_access_gate',
             'App\Policies\UserPolicy@userAccess');
+        Gate::define('sender_access_gate',
+            'App\Policies\SenderPolicy@senderAccess');
     }
 }

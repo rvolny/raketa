@@ -58,8 +58,12 @@ Route::group([
 //    Route::post('users/{user_id}/wallet/transactions');
 
     /* Actions for Sender */
+
     // Create sender
-//    Route::post('senders');
+    Route::post('users/{user_id}/sender', 'SenderController@createSender')
+        ->where(['user_id' => '[0-9]+'])
+        ->middleware('can:sender_create');
+
     // Read sender
 //    Route::get('senders/{sender_id}');
     // Update sender
@@ -119,12 +123,15 @@ Route::group([
     Route::get('lists/document-types',
         'ListDocumentTypeController@getDocumentTypes');
 
+    // Get list of insurance ranges
     Route::get('lists/insurance-ranges',
         'ListInsuranceRangeController@getInsuranceRanges');
 
+    // Get list of package types
     Route::get('lists/package-types',
         'ListPackageTypeController@getPackageTypes');
 
+    // Get list of transportation types
     Route::get('lists/transportation-types',
         'ListTransportationTypeController@getTransportationTypes');
 

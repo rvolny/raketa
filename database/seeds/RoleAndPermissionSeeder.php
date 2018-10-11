@@ -46,6 +46,10 @@ class RoleAndPermissionSeeder extends Seeder
         // Permissions for Wallet
 
         // Permissions for Sender
+        Permission::create([
+            'name'       => 'sender_create',
+            'guard_name' => 'api',
+        ])->syncRoles([$roleAdmin, $roleUser]);
 
         // Permissions for Courier
 
