@@ -20,7 +20,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Courier whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Courier whereUserId($value)
  * @mixin \Eloquent
- * @OA\Schema (
+ * @OA\Schema(
  *     description="Courier model",
  *     title="Courier model",
  *     required={"document", "agreement_checked_at"},
@@ -28,11 +28,22 @@ use Illuminate\Database\Eloquent\Model;
  *         name="Courier"
  *     )
  * )
- * @OA\RequestBody (
+ * @OA\RequestBody(
  *     request="Courier",
- *     description="Courier that needs to be added",
+ *     description="Courier that needs to be added / updated",
  *     required=true,
- *     @OA\JsonContent(ref="#/components/schemas/Courier")
+ *     @OA\MediaType(
+ *         mediaType="application/json",
+ *         @OA\Schema(
+ *             allOf={
+ *                 @OA\Schema(ref="#/components/schemas/Courier"),
+ *                 @OA\Schema(
+ *                     required={"document"},
+ *                     @OA\Property(property="document", ref="#/components/schemas/Document")
+ *                 )
+ *             }
+ *         )
+ *     )
  * )
  */
 class Courier extends Model
@@ -54,12 +65,6 @@ class Courier extends Model
      * @var integer
      */
     private $document_id;
-
-    /**
-     * @OA\Property(title="document", ref="#/components/schemas/Document")
-     * @var integer
-     */
-    private $document;
 
     /**
      * @OA\Property(format="date-time")

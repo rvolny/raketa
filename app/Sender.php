@@ -20,7 +20,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Sender whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Sender whereUserId($value)
  * @mixin \Eloquent
- * @OA\Schema (
+ * @OA\Schema(
  *     description="Sender model",
  *     title="Sender model",
  *     required={"document", "agreement_checked_at"},
@@ -28,11 +28,22 @@ use Illuminate\Database\Eloquent\Model;
  *         name="Sender"
  *     )
  * )
- * @OA\RequestBody (
+ * @OA\RequestBody(
  *     request="Sender",
- *     description="Sender that needs to be added",
+ *     description="Sender that needs to be added / updated",
  *     required=true,
- *     @OA\JsonContent(ref="#/components/schemas/Sender")
+ *     @OA\MediaType(
+ *         mediaType="application/json",
+ *         @OA\Schema(
+ *             allOf={
+ *                 @OA\Schema(ref="#/components/schemas/Sender"),
+ *                 @OA\Schema(
+ *                     required={"document"},
+ *                     @OA\Property(property="document", ref="#/components/schemas/Document")
+ *                 )
+ *             }
+ *         )
+ *     )
  * )
  */
 class Sender extends Model
@@ -54,12 +65,6 @@ class Sender extends Model
      * @var integer
      */
     private $document_id;
-
-    /**
-     * @OA\Property(title="document", ref="#/components/schemas/Document")
-     * @var integer
-     */
-    private $document;
 
     /**
      * @OA\Property(format="date-time")

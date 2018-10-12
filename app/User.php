@@ -24,6 +24,7 @@ use Spatie\Permission\Traits\HasRoles;
  * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Passport\Client[] $clients
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Conversation[] $conversationsHi
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Conversation[] $conversationsLo
+ * @property-read \App\Courier $courier
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read \Illuminate\Database\Eloquent\Collection|\Spatie\Permission\Models\Permission[] $permissions
  * @property-read \Illuminate\Database\Eloquent\Collection|\Spatie\Permission\Models\Role[] $roles
@@ -43,7 +44,7 @@ use Spatie\Permission\Traits\HasRoles;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereSurname($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereUpdatedAt($value)
  * @mixin \Eloquent
- * @OA\Schema (
+ * @OA\Schema(
  *     description="User model",
  *     title="User model",
  *     required={"name", "surname", "email", "password"},
@@ -51,9 +52,9 @@ use Spatie\Permission\Traits\HasRoles;
  *         name="User"
  *     )
  * )
- * @OA\RequestBody (
+ * @OA\RequestBody(
  *     request="User",
- *     description="User that needs to be added",
+ *     description="User that needs to be added / modified",
  *     required=true,
  *     @OA\JsonContent(ref="#/components/schemas/User")
  * )
@@ -103,24 +104,6 @@ class User extends Authenticatable
      * @var string
      */
     private $picture_path;
-
-    /**
-     * @OA\Property(format="int64")
-     * @var integer
-     */
-    private $sender_id;
-
-    /**
-     * @OA\Property(format="int64")
-     * @var integer
-     */
-    private $courier_id;
-
-    /**
-     * @OA\Property(format="int64")
-     * @var integer
-     */
-    private $wallet_id;
 
     /**
      * @OA\Property()
@@ -195,5 +178,13 @@ class User extends Authenticatable
     public function sender()
     {
         return $this->hasOne('App\Sender');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function courier()
+    {
+        return $this->hasOne('App\Courier');
     }
 }

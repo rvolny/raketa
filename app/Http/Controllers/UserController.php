@@ -34,9 +34,19 @@ class UserController extends Controller
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
-     *         @OA\JsonContent(
-     *             type="array",
-     *             @OA\Items(ref="#/components/schemas/User")
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 allOf={
+     *                     @OA\Schema(ref="#/components/schemas/User"),
+     *                     @OA\Schema(
+     *                         @OA\Property(property="sender", ref="#/components/schemas/Sender")
+     *                     ),
+     *                     @OA\Schema(
+     *                         @OA\Property(property="courier", ref="#/components/schemas/Courier")
+     *                     )
+     *                 }
+     *             )
      *         ),
      *     ),
      *     @OA\Response(response=400, description="Bad request"),
@@ -65,6 +75,8 @@ class UserController extends Controller
         try {
             // Retrieve user
             $user = User::findOrFail($userId);
+            $user['sender'] = $user->sender;
+            $user['courier'] = $user->courier;
 
             return response()->json($user);
 
@@ -95,9 +107,7 @@ class UserController extends Controller
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
-     *         @OA\JsonContent(
-     *             @OA\Items(ref="#/components/schemas/User")
-     *         ),
+     *         @OA\JsonContent(ref="#/components/schemas/User"),
      *     ),
      *     @OA\Response(response=400, description="Bad request"),
      *     @OA\Response(response=403, description="Forbidden"),
