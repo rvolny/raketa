@@ -18,7 +18,8 @@ class OauthClientSeeder extends Seeder
             'user_id'                => 2,
             'name'                   => 'swagger',
             'secret'                 => $faker->unique()->sha256(),
-            'redirect'               => 'http://raketa.local/api/oauth2-callback',
+            'redirect'               => env('APP_URL', 'http://raketa.local')
+                .'/api/oauth2-callback',
             'personal_access_client' => 0,
             'password_client'        => 1,
             'revoked'                => 0,
