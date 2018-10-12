@@ -99,7 +99,15 @@ Route::group([
     Route::post('packages', 'PackageController@createPackage')
         ->middleware('can:package_create');
 
-    // Read packages
+    // Read packages for logged in sender
+    Route::get('packages/sender', 'PackageController@getCurrentSenderPackages')
+        ->middleware('can:package_read');
+
+    // Read packages for logged in courier
+    Route::get('packages/courier',
+        'PackageController@getCurrentCourierPackages')
+        ->middleware('can:package_read');
+
 //    Route::get('packages', 'PackageController@getUserPackages');
     // Read package
 //    Route::get('packages/{package_id}');

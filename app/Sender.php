@@ -95,4 +95,12 @@ class Sender extends Model
             'document_id',
             'agreement_checked_at',
         ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function packages()
+    {
+        return $this->hasMany('App\Package');
+    }
 }

@@ -27,7 +27,7 @@ class UserController extends Controller
      *     path="/v1/me",
      *     operationId="getCurrentUserInfo",
      *     tags={"Users"},
-     *     summary="Get logged-in user info",
+     *     summary="Get logged in user info",
      *     security={
      *         {"passport": {}},
      *     },

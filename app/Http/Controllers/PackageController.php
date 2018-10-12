@@ -3,12 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Package;
+use App\User;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class PackageController extends Controller
 {
+    const SENDER = 1;
+    const COURIER = 2;
+
     /**
      * Create a new controller instance.
      *
@@ -100,6 +105,114 @@ class PackageController extends Controller
             return response()->json($package, 201);
 
         } catch (QueryException $e) {
+            return $this->apiResponse(500);
+        }
+    }
+
+    /**
+     * Get logged in sender packages
+     *
+     * @OA\Get(
+     *     path="/v1/packages/sender",
+     *     operationId="getCurrentSenderPackages",
+     *     tags={"Packages"},
+     *     summary="Get logged in sender packages",
+     *     security={
+     *         {"passport": {}},
+     *     },
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(ref="#/components/schemas/Package")
+     *         ),
+     *     ),
+     *     @OA\Response(response=400, description="Bad request"),
+     *     @OA\Response(response=401, description="Unauthorized"),
+     *     @OA\Response(response=403, description="Forbidden"),
+     *     @OA\Response(response=404, description="Not Found"),
+     *     @OA\Response(response=500, description="Internal Server Error")
+     * )
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getCurrentSenderPackages()
+    {
+        return $this->getUserPackages(Auth::user()->id,
+            PackageController::SENDER);
+    }
+
+    /**
+     * Get logged in courier packages
+     *
+     * @OA\Get(
+     *     path="/v1/packages/courier",
+     *     operationId="getCurrentCourierPackages",
+     *     tags={"Packages"},
+     *     summary="Get logged in courier packages",
+     *     security={
+     *         {"passport": {}},
+     *     },
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(ref="#/components/schemas/Package")
+     *         ),
+     *     ),
+     *     @OA\Response(response=400, description="Bad request"),
+     *     @OA\Response(response=401, description="Unauthorized"),
+     *     @OA\Response(response=403, description="Forbidden"),
+     *     @OA\Response(response=404, description="Not Found"),
+     *     @OA\Response(response=500, description="Internal Server Error")
+     * )
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getCurrentCourierPackages()
+    {
+        return $this->getUserPackages(Auth::user()->id,
+            PackageController::COURIER);
+    }
+
+    /**
+     * @param int $userId
+     * @param int $userType
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getUserPackages($userId, $userType)
+    {
+        try {
+            // Get user
+            $user = User::findOrFail($userId);
+            $packages = [];
+
+            // Get packages
+            if ($userType == PackageController::SENDER) {
+                // Get packages where user is sender
+                $sender = $user->sender;
+
+                if ($sender) {
+                    $packages = $sender->packages;
+                }
+            } else {
+                // Get packages where user is courier
+                $courier = $user->courier;
+
+                if ($courier) {
+                    $packages = $courier->packages;
+                }
+            }
+
+            return response()->json($packages);
+
+        } catch (ModelNotFoundException $e) {
+            // If user doesn't exist, return not found
+            return $this->apiResponse(404);
+        } catch (\Exception $e) {
             return $this->apiResponse(500);
         }
     }

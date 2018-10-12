@@ -63,6 +63,11 @@ class CreatePermissionData extends Migration
             'guard_name' => 'api',
         ])->syncRoles([$roleAdmin, $roleSender]);
 
+        Permission::create([
+            'name'       => 'package_read',
+            'guard_name' => 'api',
+        ])->syncRoles([$roleAdmin, $roleUser]);
+
         // Permissions for Message
         Permission::create([
             'name'       => 'message_create',
