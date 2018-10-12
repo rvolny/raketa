@@ -52,6 +52,10 @@ class CreatePermissionData extends Migration
         ])->syncRoles([$roleAdmin, $roleUser]);
 
         // Permissions for Courier
+        Permission::create([
+            'name'       => 'courier_create',
+            'guard_name' => 'api',
+        ])->syncRoles([$roleAdmin, $roleUser]);
 
         // Permissions for Package
         Permission::create([

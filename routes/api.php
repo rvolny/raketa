@@ -74,8 +74,12 @@ Route::group([
 //    Route::get('senders/{sender_id}/document');
 
     /* Actions for Courier */
+
     // Create courier
-//    Route::post('couriers');
+    Route::post('users/{user_id}/courier', 'CourierController@createCourier')
+        ->where(['user_id' => '[0-9]+'])
+        ->middleware('can:courier_create');
+
     // Read courier
 //    Route::get('couriers/{courier_id}');
     // Update courier

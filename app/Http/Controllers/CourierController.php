@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Courier;
 use App\Document;
-use App\Sender;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 
-class SenderController extends Controller
+class CourierController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -22,13 +22,13 @@ class SenderController extends Controller
     }
 
     /**
-     * Create new sender
+     * Create new courier
      *
      * @OA\Post(
-     *     path="/v1/users/{user_id}/sender",
-     *     operationId="createSender",
-     *     tags={"Senders"},
-     *     summary="Create sender for a user",
+     *     path="/v1/users/{user_id}/courier",
+     *     operationId="createCourier",
+     *     tags={"Couriers"},
+     *     summary="Create courier for a user",
      *     security={
      *         {"passport": {}},
      *     },
@@ -38,11 +38,11 @@ class SenderController extends Controller
      *         required=true,
      *         @OA\Schema(type="integer", format="int64")
      *     ),
-     *     requestBody={"$ref": "#/components/requestBodies/Sender"},
+     *     requestBody={"$ref": "#/components/requestBodies/Courier"},
      *     @OA\Response(
      *         response=201,
      *         description="Created",
-     *         @OA\JsonContent(ref="#/components/schemas/Sender"),
+     *         @OA\JsonContent(ref="#/components/schemas/Courier"),
      *     ),
      *     @OA\Response(response=400, description="Bad request"),
      *     @OA\Response(response=401, description="Unauthorized"),
@@ -59,7 +59,7 @@ class SenderController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function createSender(Request $request, int $userId)
+    public function createCourier(Request $request, int $userId)
     {
         // TODO Finish file uploads
 
@@ -72,7 +72,7 @@ class SenderController extends Controller
         ]);
 
         // Check gate that user can add sender
-        if (Gate::allows('sender_access_gate', $userId)) {
+        if (Gate::allows('courier_access_gate', $userId)) {
             // User is allowed to create sender
             try {
                 // TODO Save uploaded files
@@ -91,14 +91,14 @@ class SenderController extends Controller
                 ]);
 
                 // Create sender data
-                $sender = Sender::create([
+                $sender = Courier::create([
                     'user_id'              => $user->id,
                     'document_id'          => $document->id,
                     'agreement_checked_at' => $request->get('agreement_checked_at'),
                 ]);
 
                 // Add user role sender
-                $user->assignRole('sender');
+                $user->assignRole('courier');
 
                 // All OK, finish transaction
                 DB::commit();

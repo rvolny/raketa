@@ -20,8 +20,74 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Courier whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Courier whereUserId($value)
  * @mixin \Eloquent
+ * @OA\Schema (
+ *     description="Courier model",
+ *     title="Courier model",
+ *     required={"document", "agreement_checked_at"},
+ *     @OA\Xml(
+ *         name="Courier"
+ *     )
+ * )
+ * @OA\RequestBody (
+ *     request="Courier",
+ *     description="Courier that needs to be added",
+ *     required=true,
+ *     @OA\JsonContent(ref="#/components/schemas/Courier")
+ * )
  */
 class Courier extends Model
 {
-    //
+    /**
+     * @OA\Property(format="int64")
+     * @var integer
+     */
+    private $id;
+
+    /**
+     * @OA\Property(format="int64")
+     * @var integer
+     */
+    private $user_id;
+
+    /**
+     * @OA\Property(format="int64")
+     * @var integer
+     */
+    private $document_id;
+
+    /**
+     * @OA\Property(title="document", ref="#/components/schemas/Document")
+     * @var integer
+     */
+    private $document;
+
+    /**
+     * @OA\Property(format="date-time")
+     * @var string
+     */
+    private $agreement_checked_at;
+
+    /**
+     * @OA\Property(type="string", format="date-time")
+     * @var \Illuminate\Support\Carbon
+     */
+    private $created_at;
+
+    /**
+     * @OA\Property(type="string", format="date-time")
+     * @var \Illuminate\Support\Carbon
+     */
+    private $updated_at;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable
+        = [
+            'user_id',
+            'document_id',
+            'agreement_checked_at',
+        ];
 }

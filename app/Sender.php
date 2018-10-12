@@ -47,6 +47,12 @@ class Sender extends Model
      * @OA\Property(format="int64")
      * @var integer
      */
+    private $user_id;
+
+    /**
+     * @OA\Property(format="int64")
+     * @var integer
+     */
     private $document_id;
 
     /**
