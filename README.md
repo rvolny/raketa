@@ -40,6 +40,11 @@ If you wish to refresh database, run
 php artisan migrate:refresh --seed
 ```
 
+## Testing API
+Use Swagger at http://raketa.local/api/documentation  
+
+When authorization is required, use implicit OAuth2 grant with `client_id=1` and then use credentials from database/seeds/UserSeeder.php. Should you need to log out from the application, go to http://raketa.local/home and log out. 
+
 ## Laravel 5 IDE Helper Generator
 Generated helpers are pushed to Git, so no need to do it manually.
 ```
