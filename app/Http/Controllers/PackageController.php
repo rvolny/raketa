@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class PackageController extends Controller
 {
@@ -214,6 +215,83 @@ class PackageController extends Controller
             return $this->apiResponse(404);
         } catch (\Exception $e) {
             return $this->apiResponse(500);
+        }
+    }
+
+    /**
+     * Get specific package
+     *
+     * @OA\Get(
+     *     path="/v1/packages/{package_id}",
+     *     operationId="getPackage",
+     *     tags={"Packages"},
+     *     summary="Get specific package",
+     *     security={
+     *         {"passport": {}},
+     *     },
+     *     @OA\Parameter(
+     *         name="package_id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer", format="int64")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 allOf={
+     *                     @OA\Schema(ref="#/components/schemas/Package"),
+     *                     @OA\Schema(
+     *                         @OA\Property(property="sender", ref="#/components/schemas/Sender")
+     *                     ),
+     *                     @OA\Schema(
+     *                         @OA\Property(property="courier", ref="#/components/schemas/Courier")
+     *                     )
+     *                 }
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(response=400, description="Bad request"),
+     *     @OA\Response(response=401, description="Unauthorized"),
+     *     @OA\Response(response=403, description="Forbidden"),
+     *     @OA\Response(response=404, description="Not Found"),
+     *     @OA\Response(response=500, description="Internal Server Error")
+     * )
+     *
+     * @param int $packageId
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getPackage(int $packageId)
+    {
+        $sender = null;
+        $senderUserId = null;
+        $courier = null;
+        $courierUserId = null;
+
+        try {
+            // Retrieve package
+            $package = Package::findOrFail($packageId);
+            $package->sender;
+
+            if ($package->courier_id) {
+                $package->courier;
+            }
+
+            // Check Gate
+            if (Gate::allows('package_access_gate', $package)
+            ) {
+                // User is allowed to read package
+                return response()->json($package);
+            } else {
+                return $this->apiResponse(403);
+            }
+
+        } catch (ModelNotFoundException $e) {
+            // If package doesn't exist, return not found
+            return $this->apiResponse(404);
         }
     }
 }

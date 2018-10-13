@@ -13,6 +13,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $agreement_checked_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Package[] $packages
+ * @property-read \App\User $user
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Sender whereAgreementCheckedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Sender whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Sender whereDocumentId($value)
@@ -20,7 +22,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Sender whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Sender whereUserId($value)
  * @mixin \Eloquent
- * @OA\Schema(
+ * @OA\Schema (
  *     description="Sender model",
  *     title="Sender model",
  *     required={"document", "agreement_checked_at"},
@@ -28,7 +30,7 @@ use Illuminate\Database\Eloquent\Model;
  *         name="Sender"
  *     )
  * )
- * @OA\RequestBody(
+ * @OA\RequestBody (
  *     request="Sender",
  *     description="Sender that needs to be added / updated",
  *     required=true,
@@ -102,5 +104,13 @@ class Sender extends Model
     public function packages()
     {
         return $this->hasMany('App\Package');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User');
     }
 }

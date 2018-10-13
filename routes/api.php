@@ -108,9 +108,10 @@ Route::group([
         'PackageController@getCurrentCourierPackages')
         ->middleware('can:package_read');
 
-//    Route::get('packages', 'PackageController@getUserPackages');
     // Read package
-//    Route::get('packages/{package_id}');
+    Route::get('packages/{package_id}', 'PackageController@getPackage')
+        ->middleware('can:package_read');
+
     // Update package
 //    Route::patch('packages/{package_id}', 'PackagesController@updatePackage);
     // Create transportation offer

@@ -44,7 +44,7 @@ use Spatie\Permission\Traits\HasRoles;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereSurname($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereUpdatedAt($value)
  * @mixin \Eloquent
- * @OA\Schema(
+ * @OA\Schema (
  *     description="User model",
  *     title="User model",
  *     required={"name", "surname", "email", "password"},
@@ -52,7 +52,7 @@ use Spatie\Permission\Traits\HasRoles;
  *         name="User"
  *     )
  * )
- * @OA\RequestBody(
+ * @OA\RequestBody (
  *     request="User",
  *     description="User that needs to be added / modified",
  *     required=true,

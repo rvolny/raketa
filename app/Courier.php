@@ -13,6 +13,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $agreement_checked_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Package[] $packages
+ * @property-read \App\User $user
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Courier whereAgreementCheckedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Courier whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Courier whereDocumentId($value)
@@ -20,7 +22,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Courier whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Courier whereUserId($value)
  * @mixin \Eloquent
- * @OA\Schema(
+ * @OA\Schema (
  *     description="Courier model",
  *     title="Courier model",
  *     required={"document", "agreement_checked_at"},
@@ -28,7 +30,7 @@ use Illuminate\Database\Eloquent\Model;
  *         name="Courier"
  *     )
  * )
- * @OA\RequestBody(
+ * @OA\RequestBody (
  *     request="Courier",
  *     description="Courier that needs to be added / updated",
  *     required=true,
@@ -102,5 +104,13 @@ class Courier extends Model
     public function packages()
     {
         return $this->hasMany('App\Package');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User');
     }
 }

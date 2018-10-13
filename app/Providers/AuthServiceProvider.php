@@ -40,5 +40,7 @@ class AuthServiceProvider extends ServiceProvider
             'App\Policies\SenderPolicy@senderAccess');
         Gate::define('courier_access_gate',
             'App\Policies\CourierPolicy@courierAccess');
+        Gate::define('package_access_gate',
+            'App\Policies\PackagePolicy@packageAccess');
     }
 }
