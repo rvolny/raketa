@@ -13,6 +13,10 @@ class CreatePermissionData extends Migration
      */
     public function up()
     {
+        /*
+         * Roles
+         */
+
         // Create roles
         $roleAdmin = Role::create([
             'name'       => 'admin',
@@ -31,6 +35,9 @@ class CreatePermissionData extends Migration
             'guard_name' => 'api',
         ]);
 
+        /*
+         * Permissions
+         */
 
         // Permissions for User
         Permission::create([
@@ -68,6 +75,11 @@ class CreatePermissionData extends Migration
             'guard_name' => 'api',
         ])->syncRoles([$roleAdmin, $roleUser]);
 
+        Permission::create([
+            'name'       => 'package_accept',
+            'guard_name' => 'api',
+        ])->syncRoles([$roleAdmin, $roleCourier]);
+
         // Permissions for Message
         Permission::create([
             'name'       => 'message_create',
@@ -78,16 +90,6 @@ class CreatePermissionData extends Migration
             'name'       => 'conversation_read',
             'guard_name' => 'api',
         ])->syncRoles([$roleAdmin, $roleUser]);
-
-
-        // TODO: delete below me
-
-        // Package permissions
-        $permission = Permission::create([
-            'name'       => 'package_read_all',
-            'guard_name' => 'api',
-        ]);
-        $roleAdmin->givePermissionTo($permission);
     }
 
     /**

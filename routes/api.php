@@ -110,11 +110,16 @@ Route::group([
 
     // Read available packages for transportation
     Route::get('packages/available', 'PackageController@getAvailablePackages')
-        ->middleware('can:package_read');
+        ->middleware('can:package_accept');
 
     // Read package
     Route::get('packages/{package_id}', 'PackageController@getPackage')
         ->middleware('can:package_read');
+
+    // Accept package for transportation
+    Route::post('packages/{package_id}/accept',
+        'PackageController@acceptPackage')
+        ->middleware('can:package_accept');
 
     // Update package
 //    Route::patch('packages/{package_id}', 'PackagesController@updatePackage);

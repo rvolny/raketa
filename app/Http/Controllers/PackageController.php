@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Conversation;
 use App\Package;
 use App\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -283,8 +284,7 @@ class PackageController extends Controller
             }
 
             // Check Gate
-            if (Gate::allows('package_access_gate', $package)
-            ) {
+            if (Gate::allows('package_access_gate', $package)) {
                 // User is allowed to read package
                 return response()->json($package);
             } else {
@@ -336,21 +336,80 @@ class PackageController extends Controller
      */
     public function getAvailablePackages()
     {
-        // Check if user is courier
-        $user = Auth::user();
+        try {
+            // Get all packages
+            // TODO get all packages that are related to Courier routes
+            $packages = Package::whereCourierId(null)->get();
 
-        if ($user->courier) {
-            try {
-                // Get all packages
-                // TODO get all packages that are related to Courier routes
-                $packages = Package::whereCourierId(null)->get();
+            return response()->json($packages);
+        } catch (\Exception $e) {
+            return $this->apiResponse(500);
+        }
+    }
 
-                return response()->json($packages);
-            } catch (\Exception $e) {
-                return $this->apiResponse(500);
+    /**
+     * Accept package for transportation
+     *
+     * @OA\Post(
+     *     path="/v1/packages/{package_id}/accept",
+     *     operationId="acceptPackage",
+     *     tags={"Packages"},
+     *     summary="Accept package for transportation",
+     *     security={
+     *         {"passport": {}},
+     *     },
+     *     @OA\Parameter(
+     *         name="package_id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer", format="int64")
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Created",
+     *         @OA\JsonContent(ref="#/components/schemas/Package"),
+     *     ),
+     *     @OA\Response(response=400, description="Bad request"),
+     *     @OA\Response(response=401, description="Unauthorized"),
+     *     @OA\Response(response=403, description="Forbidden"),
+     *     @OA\Response(response=422, description="Unprocessable Entity"),
+     *     @OA\Response(response=500, description="Internal Server Error")
+     * )
+     *
+     * @param int $packageId
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function acceptPackage(int $packageId)
+    {
+        try {
+            // Get package
+            $package = Package::findOrFail($packageId);
+
+            // Get user
+            $user = Auth::user();
+
+            // Check if package has no courier
+            if (Gate::allows('package_accept_gate', $package)) {
+                // Get or create conversation
+                $conversation = Conversation::findOrNewConversation($user->id,
+                    $package->sender_id);
+
+                // Assign courier and conversation to the package
+                $package->courier_id = $user->courier->id;
+                $package->conversation_id = $conversation->id;
+                $package->save();
+
+                return response()->json($package, 201);
+            } else {
+                return $this->apiResponse(403);
             }
-        } else {
-            return $this->apiResponse(403);
+        } catch (ModelNotFoundException $e) {
+            // If package doesn't exist, return not found
+            return $this->apiResponse(404);
+        } catch (\Exception $e) {
+            // Unknown error
+            return $this->apiResponse(500);
         }
     }
 }

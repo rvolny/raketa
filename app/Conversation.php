@@ -31,4 +31,42 @@ class Conversation extends Model
     {
         return $this->hasMany('App\Message');
     }
+
+
+    /**
+     * Return existing conversation or create new
+     * Lower user id must be always in $user_id_lo
+     *
+     * @param int $user_id_1
+     * @param int $user_id_2
+     *
+     * @return Conversation|Conversation[]|\Illuminate\Database\Eloquent\Collection|Model|mixed|null|object
+     */
+    public static function findOrNewConversation(int $user_id_1, int $user_id_2)
+    {
+        // Conversations always have lower user id in $user_id_lo
+        $user_id_lo = $user_id_1;
+        $user_id_hi = $user_id_2;
+
+        if ($user_id_1 > $user_id_2) {
+            $user_id_lo = $user_id_2;
+            $user_id_hi = $user_id_1;
+        }
+
+        // Look for existing conversation first
+        $conversation = Conversation::find([
+            'user_id_lo' => $user_id_lo,
+            'user_id_hi' => $user_id_hi,
+        ])->first();
+
+        // If conversation doesn't exist, create new
+        if ( ! $conversation) {
+            $conversation = Conversation::create([
+                'user_id_lo' => $user_id_lo,
+                'user_id_hi' => $user_id_hi,
+            ]);
+        }
+
+        return $conversation;
+    }
 }

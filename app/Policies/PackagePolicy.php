@@ -21,4 +21,17 @@ class PackagePolicy
             || $user->id == ($package->courier ? $package->courier->user_id
                 : null));
     }
+
+    /**
+     * Determine whether given package can be accepted
+     *
+     * @param User $user
+     * @param Package $package
+     *
+     * @return bool
+     */
+    function packageAccept(User $user, Package $package)
+    {
+        return ($package->courier_id == null);
+    }
 }
