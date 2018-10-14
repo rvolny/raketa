@@ -78,7 +78,7 @@ class PackageController extends Controller
         // Create package
         try {
             $package = Package::create([
-                'sender_id'               => Auth::user()->sender->id,
+                'user_id_sender'          => Auth::user()->id,
                 'contents'                => $request->get('contents'),
                 'list_package_type_id'    => $request->get('list_package_type_id'),
                 'pickup_location'         => $request->get('pickup_location'),
@@ -192,23 +192,14 @@ class PackageController extends Controller
         try {
             // Get user
             $user = User::findOrFail($userId);
-            $packages = [];
 
             // Get packages
             if ($userType == PackageController::SENDER) {
                 // Get packages where user is sender
-                $sender = $user->sender;
-
-                if ($sender) {
-                    $packages = $sender->packages;
-                }
+                $packages = $user->packagesAsSender;
             } else {
                 // Get packages where user is courier
-                $courier = $user->courier;
-
-                if ($courier) {
-                    $packages = $courier->packages;
-                }
+                $packages = $user->packagesAsCourier;
             }
 
             return response()->json($packages);
@@ -247,10 +238,10 @@ class PackageController extends Controller
      *                 allOf={
      *                     @OA\Schema(ref="#/components/schemas/Package"),
      *                     @OA\Schema(
-     *                         @OA\Property(property="sender", ref="#/components/schemas/Sender")
+     *                         @OA\Property(property="sender", ref="#/components/schemas/User")
      *                     ),
      *                     @OA\Schema(
-     *                         @OA\Property(property="courier", ref="#/components/schemas/Courier")
+     *                         @OA\Property(property="courier", ref="#/components/schemas/User")
      *                     )
      *                 }
      *             )
@@ -269,23 +260,19 @@ class PackageController extends Controller
      */
     public function getPackage(int $packageId)
     {
-        $sender = null;
-        $senderUserId = null;
-        $courier = null;
-        $courierUserId = null;
-
         try {
             // Retrieve package
             $package = Package::findOrFail($packageId);
-            $package->sender;
-
-            if ($package->courier_id) {
-                $package->courier;
-            }
 
             // Check Gate
             if (Gate::allows('package_access_gate', $package)) {
                 // User is allowed to read package
+                $package->sender;
+
+                if ($package->user_id_courier) {
+                    $package->courier;
+                }
+
                 return response()->json($package);
             } else {
                 return $this->apiResponse(403);
@@ -319,7 +306,7 @@ class PackageController extends Controller
      *                     allOf={
      *                         @OA\Schema(ref="#/components/schemas/Package"),
      *                         @OA\Schema(
-     *                             @OA\Property(property="sender", ref="#/components/schemas/Sender")
+     *                             @OA\Property(property="sender", ref="#/components/schemas/User")
      *                         )
      *                     }
      *                 )
@@ -339,7 +326,7 @@ class PackageController extends Controller
         try {
             // Get all packages
             // TODO get all packages that are related to Courier routes
-            $packages = Package::whereCourierId(null)->get();
+            $packages = Package::whereUserIdCourier(null)->get();
 
             return response()->json($packages);
         } catch (\Exception $e) {
@@ -386,17 +373,17 @@ class PackageController extends Controller
             // Get package
             $package = Package::findOrFail($packageId);
 
-            // Get user
-            $user = Auth::user();
-
             // Check if package has no courier
             if (Gate::allows('package_accept_gate', $package)) {
+                // Get user
+                $user = Auth::user();
+
                 // Get or create conversation
                 $conversation = Conversation::findOrNewConversation($user->id,
-                    $package->sender->user_id);
+                    $package->user_id_sender);
 
                 // Assign courier and conversation to the package
-                $package->courier_id = $user->courier->id;
+                $package->user_id_courier = $user->id;
                 $package->conversation_id = $conversation->id;
                 $package->save();
 
