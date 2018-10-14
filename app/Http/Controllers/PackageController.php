@@ -393,7 +393,7 @@ class PackageController extends Controller
             if (Gate::allows('package_accept_gate', $package)) {
                 // Get or create conversation
                 $conversation = Conversation::findOrNewConversation($user->id,
-                    $package->sender_id);
+                    $package->sender->user_id);
 
                 // Assign courier and conversation to the package
                 $package->courier_id = $user->courier->id;

@@ -23,6 +23,17 @@ use Illuminate\Database\Eloquent\Model;
 class Conversation extends Model
 {
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable
+        = [
+            'user_id_lo',
+            'user_id_hi',
+        ];
+
+    /**
      * Get the messages for conversation
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -31,7 +42,6 @@ class Conversation extends Model
     {
         return $this->hasMany('App\Message');
     }
-
 
     /**
      * Return existing conversation or create new
