@@ -64,10 +64,8 @@ class Conversation extends Model
         }
 
         // Look for existing conversation first
-        $conversation = Conversation::find([
-            'user_id_lo' => $user_id_lo,
-            'user_id_hi' => $user_id_hi,
-        ])->first();
+        $conversation = Conversation::whereUserIdLo($user_id_lo)
+            ->whereUserIdHi($user_id_hi)->first();
 
         // If conversation doesn't exist, create new
         if ( ! $conversation) {

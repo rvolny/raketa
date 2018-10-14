@@ -26,6 +26,8 @@ use Spatie\Permission\Traits\HasRoles;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Conversation[] $conversationsLo
  * @property-read \App\Courier $courier
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Package[] $packagesAsCourier
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Package[] $packagesAsSender
  * @property-read \Illuminate\Database\Eloquent\Collection|\Spatie\Permission\Models\Permission[] $permissions
  * @property-read \Illuminate\Database\Eloquent\Collection|\Spatie\Permission\Models\Role[] $roles
  * @property-read \App\Sender $sender
@@ -186,5 +188,25 @@ class User extends Authenticatable
     public function courier()
     {
         return $this->hasOne('App\Courier');
+    }
+
+    /**
+     * Get packages where user is sender
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function packagesAsSender()
+    {
+        return $this->hasMany('App\Package', 'user_id_sender');
+    }
+
+    /**
+     * Get packages where user is courier
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function packagesAsCourier()
+    {
+        return $this->hasMany('App\Package', 'user_id_courier');
     }
 }

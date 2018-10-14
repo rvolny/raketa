@@ -13,7 +13,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $agreement_checked_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Package[] $packages
  * @property-read \App\User $user
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Courier whereAgreementCheckedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Courier whereCreatedAt($value)
@@ -97,14 +96,6 @@ class Courier extends Model
             'document_id',
             'agreement_checked_at',
         ];
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function packages()
-    {
-        return $this->hasMany('App\Package');
-    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

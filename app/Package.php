@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
  * App\Package
  *
  * @property int $id
- * @property int $sender_id
- * @property int|null $courier_id
+ * @property int $user_id_sender
+ * @property int|null $user_id_courier
  * @property string $contents
  * @property string|null $photo_path
  * @property int $list_package_type_id
@@ -32,14 +32,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Conversation|null $conversation
- * @property-read \App\Courier|null $courier
+ * @property-read \App\User|null $courier
  * @property-read \App\ListInsuranceRange $insuranceRange
  * @property-read \App\ListPackageType $packageType
- * @property-read \App\Sender $sender
+ * @property-read \App\User $sender
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Package whereAlternativeContact($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Package whereContents($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Package whereConversationId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Package whereCourierId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Package whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Package whereCurrency($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Package whereDeliveredAt($value)
@@ -58,8 +57,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Package wherePickupTime($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Package wherePrice($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Package wherePriceMaxIncrease($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Package whereSenderId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Package whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Package whereUserIdCourier($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Package whereUserIdSender($value)
  * @mixin \Eloquent
  * @OA\Schema (
  *     description="Package model",
@@ -89,13 +89,13 @@ class Package extends Model
      * @OA\Property(format="int64")
      * @var integer
      */
-    private $sender_id;
+    private $user_id_sender;
 
     /**
      * @OA\Property(format="int64")
      * @var integer
      */
-    private $courier_id;
+    private $user_id_courier;
 
     /**
      * @OA\Property()
@@ -230,7 +230,7 @@ class Package extends Model
      */
     protected $fillable
         = [
-            'sender_id',
+            'user_id_sender',
             'contents',
             'list_package_type_id',
             'pickup_location',
@@ -253,7 +253,7 @@ class Package extends Model
      */
     public function sender()
     {
-        return $this->belongsTo('App\Sender');
+        return $this->belongsTo('App\User', 'user_id_sender');
     }
 
     /**
@@ -261,7 +261,7 @@ class Package extends Model
      */
     public function courier()
     {
-        return $this->belongsTo('App\Courier');
+        return $this->belongsTo('App\User', 'user_id_courier');
     }
 
     /**

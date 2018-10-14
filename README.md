@@ -59,3 +59,4 @@ Swagger data types - https://swagger.io/docs/specification/data-models/data-type
 php-swagger examples - https://github.com/zircote/swagger-php/tree/master/Examples/petstore-3.0  
 HTTP status codes - https://en.wikipedia.org/wiki/List_of_HTTP_status_codes  
 Restful API - https://restfulapi.net/http-methods/  
+Faker - https://github.com/fzaninotto/Faker  

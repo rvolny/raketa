@@ -17,9 +17,8 @@ class PackagePolicy
      */
     function packageAccess(User $user, Package $package)
     {
-        return ($user->id == $package->sender->user_id
-            || $user->id == ($package->courier ? $package->courier->user_id
-                : null));
+        return ($user->id == $package->user_id_sender
+            || $user->id == $package->user_id_courier);
     }
 
     /**
@@ -32,6 +31,6 @@ class PackagePolicy
      */
     function packageAccept(User $user, Package $package)
     {
-        return ($package->courier_id == null);
+        return ($package->user_id_courier == null);
     }
 }

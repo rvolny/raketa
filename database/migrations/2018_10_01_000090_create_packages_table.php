@@ -17,8 +17,8 @@ class CreatePackagesTable extends Migration
     {
         Schema::create('packages', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('sender_id')->unsigned();
-            $table->integer('courier_id')->unsigned()->nullable();
+            $table->integer('user_id_sender')->unsigned();
+            $table->integer('user_id_courier')->unsigned()->nullable();
             $table->text('contents');
             $table->string('photo_path')->nullable();
             $table->integer('list_package_type_id')->unsigned();
@@ -40,8 +40,8 @@ class CreatePackagesTable extends Migration
             $table->dateTime('delivered_at')->nullable();
             $table->timestamps();
 
-            $table->foreign('sender_id')->references('id')->on('senders');
-            $table->foreign('courier_id')->references('id')->on('couriers');
+            $table->foreign('user_id_sender')->references('id')->on('users');
+            $table->foreign('user_id_courier')->references('id')->on('users');
             $table->foreign('list_package_type_id')->references('id')
                 ->on('list_package_types');
             $table->foreign('list_insurance_range_id')->references('id')

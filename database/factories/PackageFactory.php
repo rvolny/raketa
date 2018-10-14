@@ -1,9 +1,7 @@
 <?php
 
-use App\Courier;
 use App\ListInsuranceRange;
 use App\ListPackageType;
-use App\Sender;
 use Faker\Generator as Faker;
 
 /*
@@ -22,20 +20,15 @@ $factory->define(App\Package::class,
         $pickup_date = $faker->dateTimeBetween(
             $startDate = 'now', $endDate = 'now +1 month');
 
-        $senderCount = Sender::count();
-        $courierCount = Courier::count();
-        $listPackageTypeCount = ListPackageType::count();
-        $listInsuranceRangeTypeCount = ListInsuranceRange::count();
-
         return [
-            'sender_id'               => $faker->numberBetween($min = 1,
-                $max = $senderCount),
-            'courier_id'              => $faker->optional()->numberBetween(
-                $min = 1, $max = $courierCount),
+            'user_id_sender'          => $faker->randomElement(
+                $array = DB::table('senders')->pluck('user_id')),
+            'user_id_courier'         => $faker->optional()->randomElement(
+                $array = DB::table('couriers')->pluck('user_id')),
             'contents'                => $faker->sentence($nbWords = 3,
                 $variableNbWords = true),
             'list_package_type_id'    => $faker->numberBetween($min = 1,
-                $max = $listPackageTypeCount),
+                $max = ListPackageType::count()),
             'pickup_location'         => $faker->city,
             'pickup_date'             => $pickup_date,
             'pickup_time'             => $faker->optional()->time(),
@@ -53,7 +46,7 @@ $factory->define(App\Package::class,
             'price_max_increase'      => $faker->optional()->numberBetween(
                 $min = 0, $max = 20),
             'list_insurance_range_id' => $faker->numberBetween($min = 1,
-                $max = $listInsuranceRangeTypeCount),
+                $max = ListInsuranceRange::count()),
             'alternative_contact'     => $faker->phoneNumber,
             'password'                => $faker->word,
         ];
