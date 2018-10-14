@@ -108,6 +108,10 @@ Route::group([
         'PackageController@getCurrentCourierPackages')
         ->middleware('can:package_read');
 
+    // Read available packages for transportation
+    Route::get('packages/available', 'PackageController@getAvailablePackages')
+        ->middleware('can:package_read');
+
     // Read package
     Route::get('packages/{package_id}', 'PackageController@getPackage')
         ->middleware('can:package_read');

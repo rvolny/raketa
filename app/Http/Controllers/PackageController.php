@@ -179,6 +179,8 @@ class PackageController extends Controller
     }
 
     /**
+     * Get packages for given user a user type
+     *
      * @param int $userId
      * @param int $userType
      *
@@ -292,6 +294,63 @@ class PackageController extends Controller
         } catch (ModelNotFoundException $e) {
             // If package doesn't exist, return not found
             return $this->apiResponse(404);
+        }
+    }
+
+    /**
+     * Get packages for courier which match his/her routes
+     *
+     * @OA\Get(
+     *     path="/v1/packages/available",
+     *     operationId="getAvailablePackages",
+     *     tags={"Packages"},
+     *     summary="Get available packages for transportation",
+     *     security={
+     *         {"passport": {}},
+     *     },
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 type="array",
+     *                 @OA\Items(
+     *                     allOf={
+     *                         @OA\Schema(ref="#/components/schemas/Package"),
+     *                         @OA\Schema(
+     *                             @OA\Property(property="sender", ref="#/components/schemas/Sender")
+     *                         )
+     *                     }
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(response=400, description="Bad request"),
+     *     @OA\Response(response=401, description="Unauthorized"),
+     *     @OA\Response(response=403, description="Forbidden"),
+     *     @OA\Response(response=500, description="Internal Server Error")
+     * )
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getAvailablePackages()
+    {
+        // Check if user is courier
+        $user = Auth::user();
+
+        if ($user->courier) {
+            try {
+                // Get all packages
+                // TODO get all packages that are related to Courier routes
+                $packages = Package::whereCourierId(null)->get();
+
+                return response()->json($packages);
+            } catch (\Exception $e) {
+                return $this->apiResponse(500);
+            }
+        } else {
+            return $this->apiResponse(403);
         }
     }
 }
