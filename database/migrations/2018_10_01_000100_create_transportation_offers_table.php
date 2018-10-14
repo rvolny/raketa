@@ -15,8 +15,8 @@ class CreateTransportationOffersTable extends Migration
     {
         Schema::create('transportation_offers', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('sender_id')->unsigned();
-            $table->integer('courier_id')->unsigned()->nullable();
+            $table->integer('user_id_sender')->unsigned();
+            $table->integer('user_id_courier')->unsigned()->nullable();
             $table->integer('package_id')->unsigned();
             $table->enum('state',
                 [
@@ -30,8 +30,8 @@ class CreateTransportationOffersTable extends Migration
                 ]);
             $table->timestamps();
 
-            $table->foreign('sender_id')->references('id')->on('senders');
-            $table->foreign('courier_id')->references('id')->on('couriers');
+            $table->foreign('user_id_sender')->references('id')->on('users');
+            $table->foreign('user_id_courier')->references('id')->on('users');
             $table->foreign('package_id')->references('id')->on('packages');
         });
     }
