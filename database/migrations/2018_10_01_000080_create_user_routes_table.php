@@ -15,13 +15,13 @@ class CreateUserRoutesTable extends Migration
     {
         Schema::create('user_routes', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('courier_id')->unsigned();
+            $table->integer('user_id')->unsigned();
             $table->string('destination', 256);
             $table->string('recurrence', 256);
             $table->integer('list_transportation_type_id')->unsigned();
             $table->timestamps();
 
-            $table->foreign('courier_id')->references('id')->on('couriers');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('list_transportation_type_id')->references('id')
                 ->on('list_transportation_types');
         });
