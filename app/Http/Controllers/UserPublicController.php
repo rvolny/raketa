@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserPublicController extends Controller
 {
@@ -15,6 +16,37 @@ class UserPublicController extends Controller
      */
     public function __construct()
     {
+    }
+
+    /**
+     * Generate personal access token for user
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function login(Request $request)
+    {
+        // Validate input parameters
+        $this->validate($request, [
+            'email'    => 'string|min:6',
+            'password' => 'string|min:6',
+        ]);
+
+        // Attempt authentication
+        if (Auth::attempt([
+            'email'    => request('email'),
+            'password' => request('password'),
+        ])
+        ) {
+            // Authentication successful
+            $user = Auth::user();
+            $success['token'] = $user->createToken('RaketaApp')->accessToken;
+
+            return response()->json(['success' => $success], 200);
+        } else {
+            return $this->apiResponse(401);
+        }
     }
 
     /**

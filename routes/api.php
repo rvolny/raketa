@@ -18,12 +18,14 @@
 //Route::post('/forgot/password', 'UserApiController@forgot_password');
 //Route::post('/reset/password', 'UserApiController@reset_password');
 
+// Personal access token auth
+Route::post('auth/login', 'UserPublicController@login');
 
 // APIs that do not require authenticated user, but require prefix
 Route::group([
     'prefix' => 'v1',
 ], function () {
-    // Create user
+    // Create user - registration
     Route::post('users', 'UserPublicController@createUser');
 });
 
