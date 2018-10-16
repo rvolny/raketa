@@ -41,9 +41,10 @@ class UserPublicController extends Controller
         ) {
             // Authentication successful
             $user = Auth::user();
-            $success['token'] = $user->createToken('RaketaApp')->accessToken;
 
-            return response()->json(['success' => $success], 200);
+            return response()->json([
+                'token' => $user->createToken('RaketaApp')->accessToken,
+            ]);
         } else {
             return $this->apiResponse(401);
         }
