@@ -93,6 +93,9 @@ class UserPublicController extends Controller
                 'language' => 'sk',
             ]);
 
+            // Add default role to user
+            $user->assignRole('user');
+
             return response()->json($user, 201);
 
         } catch (QueryException $e) {
