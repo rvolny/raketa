@@ -80,7 +80,7 @@ class UserPublicController extends Controller
             'name'     => 'required|min:2',
             'surname'  => 'required|min:2',
             'email'    => 'required|email|max:255|unique:users',
-            'password' => 'required|min:8',
+            'password' => 'required|min:6',
         ]);
 
         // Create user

@@ -127,7 +127,7 @@ class UserController extends Controller
         $this->validate($request, [
             'name'     => 'string|min:2',
             'surname'  => 'string|min:2',
-            'password' => 'string|min:8',
+            'password' => 'string|min:6',
         ]);
 
         try {
