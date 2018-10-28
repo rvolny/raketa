@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
             'id'                => 1,
             'name'              => 'Admin',
             'surname'           => 'Admin',
-            'email'             => 'admin@noreply.com',
+            'email'             => 'admin@example.com',
             'email_verified_at' => now(),
             'password'          => bcrypt('123456'),
         ]);
@@ -30,7 +30,7 @@ class UserSeeder extends Seeder
             'id'                => 2,
             'name'              => 'Swagger',
             'surname'           => 'Swagger',
-            'email'             => 'swagger@noreply.com',
+            'email'             => 'swagger@example.com',
             'email_verified_at' => now(),
             'password'          => bcrypt('123456'),
         ]);
@@ -40,7 +40,7 @@ class UserSeeder extends Seeder
             'id'                => 3,
             'name'              => 'Jurij',
             'surname'           => 'Gagarin',
-            'email'             => 'gagarin@noreply.com',
+            'email'             => 'gagarin@example.com',
             'email_verified_at' => now(),
             'password'          => bcrypt('123456'),
         ]);
@@ -51,7 +51,7 @@ class UserSeeder extends Seeder
             'id'                => 4,
             'name'              => 'Sender',
             'surname'           => 'Sender',
-            'email'             => 'sender@noreply.com',
+            'email'             => 'sender@example.com',
             'email_verified_at' => now(),
             'password'          => bcrypt('123456'),
         ]);
@@ -72,7 +72,7 @@ class UserSeeder extends Seeder
             'id'                => 5,
             'name'              => 'Courier',
             'surname'           => 'Courier',
-            'email'             => 'courier@noreply.com',
+            'email'             => 'courier@example.com',
             'email_verified_at' => now(),
             'password'          => bcrypt('123456'),
         ]);
@@ -88,6 +88,16 @@ class UserSeeder extends Seeder
         ]);
         $user->assignRole(['user', 'courier']);
 
+        // Create regular user
+        $user = User::create([
+            'id'                => 6,
+            'name'              => 'User',
+            'surname'           => 'User',
+            'email'             => 'user@example.com',
+            'email_verified_at' => now(),
+            'password'          => bcrypt('123456'),
+        ]);
+        $user->assignRole('user');
     }
 
 }
