@@ -99,6 +99,19 @@ class Message extends Model
     private $updated_at;
 
     /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts
+        = [
+            'received_at' => 'datetime:c',
+            'read_at'     => 'datetime:c',
+            'created_at'  => 'datetime:c',
+            'updated_at'  => 'datetime:c',
+        ];
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array

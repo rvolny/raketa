@@ -23,6 +23,17 @@ use Illuminate\Database\Eloquent\Model;
 class Conversation extends Model
 {
     /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts
+        = [
+            'created_at' => 'datetime:c',
+            'updated_at' => 'datetime:c',
+        ];
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
