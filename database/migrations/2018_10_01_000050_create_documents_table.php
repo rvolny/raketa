@@ -17,7 +17,9 @@ class CreateDocumentsTable extends Migration
             $table->increments('id');
             $table->integer('list_document_type_id')->unsigned();
             $table->string('scan_front_path');
+            $table->string('scan_front_filename');
             $table->string('scan_back_path')->nullable();
+            $table->string('scan_back_filename')->nullable();
             $table->timestamps();
 
             $table->foreign('list_document_type_id')->references('id')

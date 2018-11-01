@@ -58,7 +58,9 @@ class UserSeeder extends Seeder
         $document = Document::create([
             'list_document_type_id' => 1,
             'scan_front_path'       => '__DUMMY_SENDER_FRONT',
+            'scan_front_filename'   => '__DUMMY_SENDER_FRONT_NAME',
             'scan_back_path'        => '__DUMMY_SENDER_BACK',
+            'scan_back_filename'    => '__DUMMY_SENDER_BACK_NAME',
         ]);
         Sender::create([
             'user_id'              => $user->id,
@@ -79,7 +81,9 @@ class UserSeeder extends Seeder
         $document = Document::create([
             'list_document_type_id' => 2,
             'scan_front_path'       => '__DUMMY_COURIER_FRONT',
+            'scan_front_filename'   => '__DUMMY_SENDER_FRONT_NAME',
             'scan_back_path'        => null,
+            'scan_back_filename'    => null,
         ]);
         Courier::create([
             'user_id'              => $user->id,

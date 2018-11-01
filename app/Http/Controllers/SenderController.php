@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Document;
 use App\Sender;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
@@ -61,40 +62,91 @@ class SenderController extends Controller
      */
     public function createSender(Request $request, int $userId)
     {
-        // TODO Finish file uploads
-
         // Validate input parameters
         $this->validate($request, [
-            'document.list_document_type_id' => 'required|integer|exists:list_document_types,id',
-            // 'scan_front'                     => 'required|file',
-            // 'scan_back'                      => 'file',
-            'agreement_checked_at'           => 'required|before_or_equal:now',
+            'list_document_type_id' => 'required|integer|exists:list_document_types,id',
+            'agreement_checked_at'  => 'required|before_or_equal:now',
+            'scan_front'            => 'required|file|mimetypes:image/*,application/pdf',
+            'scan_back'             => 'file|mimetypes:image/*,application/pdf',
         ]);
 
         // Check gate that user can add sender
         if (Gate::allows('sender_access_gate', $userId)) {
             // User is allowed to create sender
-            try {
-                // TODO Save uploaded files
+            $user = Auth::user();
 
-                $postedDocument = $request->get('document');
-                $user = Auth::user();
+            // Generate random hashes for file names
+            $scanFrontHash = bin2hex(random_bytes(8));
+            $scanBackHash = bin2hex(random_bytes(8));
+
+            // Get absolute private path
+            // Documents are not directly accessible via web server
+            $privatePath = storage_path().Document::PRIVATE_DOCUMENT_PATH.'/';
+
+            // Check front scan
+            $scanFrontFile = $request->file('scan_front');
+            if ( ! $scanFrontFile->isValid()) {
+                return $this->apiResponse(422);
+            }
+
+            // Check back scan
+            $scanBackFile = null;
+            if ($request->hasFile('scan_back')) {
+                $scanBackFile = $request->file('scan_back');
+                if ( ! $scanBackFile->isValid()) {
+                    return $this->apiResponse(422);
+                }
+            }
+
+            // Prepare front scan filename and path
+            $scanFrontOriginalFilename
+                = $scanFrontFile->getClientOriginalName();
+            $scanFrontFilename = $user->id.'__'.$scanFrontHash.'__'
+                .$scanFrontOriginalFilename;
+            $scanFrontRelativePath = Document::PRIVATE_DOCUMENT_PATH.'/'
+                .$scanFrontFilename;
+
+            // Prepare back scan filename and path
+            $scanBackFilename = null;
+            $scanBackRelativePath = null;
+            $scanBackOriginalFilename = null;
+
+            if ($scanBackFile) {
+                $scanBackOriginalFilename
+                    = $scanBackFile->getClientOriginalName();
+                $scanBackFilename = $user->id.'__'.$scanBackHash.'__'
+                    .$scanBackOriginalFilename;
+                $scanBackRelativePath = Document::PRIVATE_DOCUMENT_PATH.'/'
+                    .$scanBackFilename;
+            }
+
+            try {
+                // Move front scan to private storage
+                $scanFrontFile->move($privatePath, $scanFrontFilename);
+
+                // Move back scan to private storage
+                if ($scanBackFile) {
+                    $scanBackFile->move($privatePath, $scanBackFilename);
+                }
 
                 // Begin transaction
                 DB::beginTransaction();
 
                 // Create document with file uploads
                 $document = Document::create([
-                    'list_document_type_id' => $postedDocument['list_document_type_id'],
-                    'scan_front_path'       => '__TODO__dummy_path',
-                    'scan_back_path'        => '__TODO__dummy_path',
+                    'list_document_type_id' => $request->get('list_document_type_id'),
+                    'scan_front_path'       => $scanFrontRelativePath,
+                    'scan_front_filename'   => $scanFrontOriginalFilename,
+                    'scan_back_path'        => $scanBackRelativePath,
+                    'scan_back_filename'    => $scanBackOriginalFilename,
                 ]);
 
                 // Create sender data
                 $sender = Sender::create([
                     'user_id'              => $user->id,
                     'document_id'          => $document->id,
-                    'agreement_checked_at' => $request->get('agreement_checked_at'),
+                    'agreement_checked_at' => Carbon::parse($request->get('agreement_checked_at'))
+                        ->toDateTimeString(),
                 ]);
 
                 // Add user role sender
@@ -109,7 +161,11 @@ class SenderController extends Controller
                 // Something went wrong, transaction rollback
                 DB::rollBack();
 
-                // TODO: delete uploads
+                // Delete residual uploaded files
+                unlink($privatePath.$scanFrontFilename);
+                if ($scanBackFile) {
+                    unlink($privatePath.$scanBackFilename);
+                }
 
                 return $this->apiResponse(405);
             }
