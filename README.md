@@ -39,6 +39,7 @@ ln -s ../storage/app/public public/storage
 If you wish to refresh database, run
 ```
 php artisan migrate:refresh --seed
+php artisan passport:client --personal
 ```
 
 ## Testing API
