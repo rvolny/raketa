@@ -6,15 +6,16 @@ Uses PSR2 code style.
 
 ## Requirements
 - Apache httpd 2.4 / nginx
-- MySQL 5.7 / MariaDB
+- MySQL 5.7 / MariaDB 10
 - PHP 7.2
 - Composer 1.6
 
 ## Database
 ```
-  create schema raketa
-  create user raketa identified by '**********'
-  grant all on raketa.* to raketa
+mysql -u root -p
+create schema raketa
+create user raketa identified by '**********'
+grant all on raketa.* to raketa
 ```
 
 ## Installation
