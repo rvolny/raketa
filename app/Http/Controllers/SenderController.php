@@ -103,6 +103,7 @@ class SenderController extends Controller
                 = $scanFrontFile->getClientOriginalName();
             $scanFrontFilename = $user->id.'__'.$scanFrontHash.'__'
                 .$scanFrontOriginalFilename;
+            // TODO check if file doesn't exist yet. If it does, change hash
             $scanFrontRelativePath = Document::PRIVATE_DOCUMENT_PATH.'/'
                 .$scanFrontFilename;
 
@@ -116,6 +117,7 @@ class SenderController extends Controller
                     = $scanBackFile->getClientOriginalName();
                 $scanBackFilename = $user->id.'__'.$scanBackHash.'__'
                     .$scanBackOriginalFilename;
+                // TODO check if file doesn't exist yet. If it does, change hash
                 $scanBackRelativePath = Document::PRIVATE_DOCUMENT_PATH.'/'
                     .$scanBackFilename;
             }

@@ -34,14 +34,16 @@ use Illuminate\Database\Eloquent\Model;
  *     description="Courier that needs to be added / updated",
  *     required=true,
  *     @OA\MediaType(
- *         mediaType="application/json",
+ *         mediaType="multipart/form-data",
  *         @OA\Schema(
  *             allOf={
  *                 @OA\Schema(ref="#/components/schemas/Courier"),
  *                 @OA\Schema(
- *                     required={"document"},
- *                     @OA\Property(property="document", ref="#/components/schemas/Document")
- *                 )
+ *                     required={"list_document_type_id", "scan_front"},
+ *                     @OA\Property(property="list_document_type_id", format="int64", description="Document type ID"),
+ *                     @OA\Property(property="scan_front", format="binary", description="Document front page scan"),
+ *                     @OA\Property(property="scan_back", format="binary", description="Document back page scan")
+ *                 ),
  *             }
  *         )
  *     )
