@@ -162,4 +162,9 @@ Route::group([
     Route::get('lists/transportation-types',
         'ListTransportationTypeController@getTransportationTypes');
 
+    /* Actions for Files */
+
+    // File upload
+    Route::post('files', 'FileUploadController@uploadFile');
+
 });
