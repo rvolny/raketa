@@ -76,8 +76,8 @@ class CourierController extends Controller
             $user = Auth::user();
 
             // Generate random hashes for file names
-            $scanFrontHash = bin2hex(random_bytes(8));
-            $scanBackHash = bin2hex(random_bytes(8));
+            $scanFrontHash = Utils::getRandomFilePrefix();
+            $scanBackHash = Utils::getRandomFilePrefix();
 
             // Get absolute private path
             // Documents are not directly accessible via web server
