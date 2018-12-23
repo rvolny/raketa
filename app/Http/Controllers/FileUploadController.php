@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 class FileUploadController extends Controller
 {
     const PUBLIC_STORAGE = 'public/packages';
+    const PUBLIC_URL_PATH = '/storage/packages/';
 
     /**
      * Create a new controller instance.
@@ -55,7 +56,7 @@ class FileUploadController extends Controller
         ]);
 
         $path = $request->file('file')->store(self::PUBLIC_STORAGE);
-        $response = ['file_path' => $path];
+        $response = ['file_path' => self::PUBLIC_URL_PATH.basename($path)];
 
         return response()->json($response, 201);
     }
