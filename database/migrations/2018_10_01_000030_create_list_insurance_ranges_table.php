@@ -25,17 +25,22 @@ class CreateListInsuranceRangesTable extends Migration
 
         DB::table('list_insurance_ranges')->insert([
             [
-                'insurance_range' => '0_99',
+                'insurance_range' => 'none',
                 'created_at'      => now(),
                 'updated_at'      => now(),
             ],
             [
-                'insurance_range' => '100_499',
+                'insurance_range' => 'upto25',
                 'created_at'      => now(),
                 'updated_at'      => now(),
             ],
             [
-                'insurance_range' => '500_MAX',
+                'insurance_range' => 'upto50',
+                'created_at'      => now(),
+                'updated_at'      => now(),
+            ],
+            [
+                'insurance_range' => 'over50',
                 'created_at'      => now(),
                 'updated_at'      => now(),
             ],
