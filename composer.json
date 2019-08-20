@@ -1,7 +1,7 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "name": "rvolny/raketa",
+    "description": "Raketa backend for Gagarin application",
+    "keywords": ["raketa", "gagarin"],
     "license": "MIT",
     "type": "project",
     "require": {
