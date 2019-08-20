@@ -25,12 +25,12 @@ cp .env.example .env
 ```
 Edit content of `.env` to your needs (especially APP_URL, DB_PASSWORD and L5_SWAGGER_CONST_HOST)  
 ```
-composer install  
+composer install
 php artisan key:generate
 php artisan migrate
-php artisan db:seed  
-php artisan passport:client --personal  
-php artisan storage:link  
+php artisan db:seed
+php artisan passport:install
+php artisan storage:link
 ```
 
 ## Updating
